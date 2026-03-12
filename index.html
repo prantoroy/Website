@@ -2,1421 +2,662 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bishal Roy - Geoinformatics and Geospatial Analytics</title>
+  <title>Bishal Roy — GeoAI · Remote Sensing · Soil Carbon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Research portfolio of Bishal Roy, PhD candidate in Geoinformatics and Geospatial Analytics, focusing on hyperspectral remote sensing, soil carbon, and physics informed GeoAI.">
+  <meta name="description" content="Bishal Roy — PhD candidate in Geoinformatics and Geospatial Analytics at Saint Louis University. Research in hyperspectral remote sensing, physics-aware GeoAI, and depth-resolved soil carbon mapping.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #060714;
       --bg-soft: #101322;
       --bg-softer: #181b2c;
       --accent: #3a86ff;
-      --accent-soft: rgba(58, 134, 255, 0.12);
+      --accent-soft: rgba(58,134,255,0.12);
       --accent-strong: #ffbe0b;
       --text: #f5f5f7;
       --text-muted: #b3b4c5;
       --border: #26293a;
       --card-radius: 18px;
       --max-width: 1100px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.6);
-      --shadow-subtle: 0 10px 26px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.6);
+      --shadow-subtle: 0 10px 26px rgba(0,0,0,0.35);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
     }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: radial-gradient(circle at top left, #16213e 0, #0b0c1a 45%, #050510 100%); color: var(--text); line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .page { min-height: 100vh; display: flex; flex-direction: column; }
+    .shell { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.6rem; }
+    section { padding: 4.5rem 0; scroll-margin-top: 80px; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #16213e 0, #0b0c1a 45%, #050510 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    /* Layout wrappers */
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .shell {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.6rem;
-    }
-
-    section {
-      padding: 4.5rem 0;
-      scroll-margin-top: 90px;
-    }
-
-    /* Navigation */
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(22px);
-      background: linear-gradient(to bottom, rgba(5, 5, 15, 0.95), rgba(5, 5, 15, 0.86));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 1rem;
-    }
-
-    .nav-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      overflow: hidden;
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .nav-brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-    }
-
-    .nav-name {
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .nav-role {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.6rem;
-      font-size: 0.9rem;
-    }
-
-    .nav-link {
-      color: var(--text-muted);
-      position: relative;
-      padding-bottom: 2px;
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 0;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
-      transition: width 0.2s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: radial-gradient(circle at top left, rgba(58, 134, 255, 0.35), rgba(5, 6, 20, 0.9));
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      box-shadow: 0 0 24px rgba(58, 134, 255, 0.32);
-    }
-
-    .nav-cta span {
-      font-size: 0.95em;
-    }
-
-    .nav-cta-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent-strong);
-      box-shadow: 0 0 8px rgba(255, 190, 11, 0.9);
-    }
-
-    .nav-menu-toggle {
-      display: none;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 1.3rem;
-      cursor: pointer;
-    }
-
+    /* nav */
+    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(22px); background: linear-gradient(to bottom, rgba(5,5,15,0.96), rgba(5,5,15,0.86)); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); }
+    .nav-logo { width: 32px; height: 32px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: var(--bg-softer); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: var(--accent); }
+    .nav-brand-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .nav-name { font-weight: 700; letter-spacing: 0.03em; font-size: 1rem; }
+    .nav-role { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-body); }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; font-size: 0.87rem; }
+    .nav-link { color: var(--text-muted); position: relative; padding-bottom: 2px; transition: color 0.15s; }
+    .nav-link::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); transition: width 0.2s ease; }
+    .nav-link:hover { color: var(--text); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-cta { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); background: radial-gradient(circle at top left, rgba(58,134,255,0.35), rgba(5,6,20,0.9)); font-size: 0.79rem; text-transform: uppercase; letter-spacing: 0.12em; box-shadow: 0 0 22px rgba(58,134,255,0.28); font-family: var(--font-display); }
+    .nav-cta-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent-strong); box-shadow: 0 0 8px rgba(255,190,11,0.9); }
+    .nav-menu-toggle { display: none; border: none; background: transparent; color: var(--text); font-size: 1.3rem; cursor: pointer; }
     @media (max-width: 780px) {
-      .nav-links {
-        display: none;
-      }
-      .nav-menu-toggle {
-        display: inline-flex;
-      }
-      .nav-links.mobile-open {
-        position: absolute;
-        top: 64px;
-        right: 0;
-        left: 0;
-        flex-direction: column;
-        gap: 0.85rem;
-        padding: 1.2rem 1.6rem 1.4rem;
-        background: radial-gradient(circle at top, #16172a 0, #050515 45%, #050510 100%);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .nav-cta {
-        align-self: flex-start;
-      }
-    }
-
-    /* Hero */
-
-    .hero {
-      padding: 3.6rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 2.4rem;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.8rem;
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      background: rgba(58, 134, 255, 0.12);
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(58, 134, 255, 0.3);
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-kicker-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent-strong);
-    }
-
-    .hero-title {
-      font-size: clamp(2.4rem, 4vw, 3rem);
-      font-weight: 650;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-
-    .hero-highlight {
-      background: linear-gradient(120deg, #ffffff, #7ec8ff, #ffbe0b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 1.4rem;
-      max-width: 40rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .tag {
-      font-size: 0.78rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--text-muted);
-      background: rgba(10, 10, 30, 0.85);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      align-items: center;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: transform 0.13s ease, box-shadow 0.13s ease, background 0.13s ease;
-      backdrop-filter: blur(6px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(120deg, var(--accent), #7ec8ff);
-      color: #050510;
-      box-shadow: 0 14px 30px rgba(46, 130, 255, 0.35);
-    }
-
-    .btn-ghost {
-      border-color: rgba(255, 255, 255, 0.18);
-      background: rgba(5, 5, 20, 0.85);
-      color: var(--text-muted);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65);
-    }
-
-    .btn span.icon {
-      font-size: 1.05rem;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      margin-top: 1.4rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .hero-meta-item strong {
-      display: block;
-      color: var(--text);
-      font-weight: 500;
-      margin-bottom: 0.1rem;
-    }
-
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-    }
-
-    .hero-card {
-      width: 100%;
-      max-width: 330px;
-      border-radius: 24px;
-      background: radial-gradient(circle at top left, #3a86ff22 0, #050515 40%, #050510 100%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 1.1rem;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-pill {
-      font-size: 0.7rem;
-      padding: 0.12rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: var(--text-muted);
-      background: rgba(8, 10, 30, 0.9);
-    }
-
-    .hero-chip {
-      font-size: 0.7rem;
-      padding: 0.12rem 0.55rem;
-      border-radius: 999px;
-      color: var(--accent-strong);
-      background: rgba(255, 190, 11, 0.12);
-      border: 1px solid rgba(255, 190, 11, 0.5);
-    }
-
-    .hero-photo-wrap {
-      position: relative;
-      border-radius: 999px;
-      width: 110px;
-      height: 110px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.38);
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.7);
-      margin-bottom: 0.8rem;
-    }
-
-    .hero-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-card-body {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .hero-small-metric {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 0.9rem;
-      padding-top: 0.7rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.14);
-    }
-
-    .hero-small-metric-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-      font-size: 0.78rem;
-    }
-
-    .metric-label {
-      color: var(--text-muted);
-    }
-
-    .metric-value {
-      color: #ffffff;
-      font-weight: 500;
-    }
-
-    /* Section headers */
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1.2rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .section-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .section-badge {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      box-shadow: 0 0 16px rgba(58, 134, 255, 0.45);
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: 550;
-    }
-
-    .section-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      max-width: 26rem;
-    }
-
-    @media (max-width: 780px) {
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    /* Cards and grids */
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.4rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.4rem;
-    }
-
-    @media (max-width: 900px) {
-      .grid-2, .grid-3 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      border-radius: var(--card-radius);
-      background: linear-gradient(145deg, rgba(10, 12, 26, 0.96), rgba(6, 7, 20, 0.98));
-      border: 1px solid var(--border);
-      padding: 1.1rem 1.1rem 1.1rem;
-      box-shadow: var(--shadow-subtle);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.6rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 520;
-      margin-bottom: 0.15rem;
-    }
-
-    .card-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .card-label {
-      font-size: 0.7rem;
-      padding: 0.15rem 0.55rem;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #cddcff;
-      border: 1px solid rgba(58, 134, 255, 0.45);
-    }
-
-    .card-body {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .card-body p {
-      margin-bottom: 0.55rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.4rem;
-    }
-
-    .pill {
-      font-size: 0.7rem;
-      padding: 0.14rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: var(--text-muted);
-      background: rgba(4, 5, 18, 0.95);
-    }
-
-    .card-footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 0.7rem;
-      font-size: 0.8rem;
-    }
-
-    .link-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.18rem 0.65rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(9, 10, 28, 0.95);
-      color: #d8ddff;
-    }
-
-    .link-pill span.icon {
-      font-size: 0.95rem;
-    }
-
-    .card-banner-image {
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 0.7rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    /* Publications */
-
-    .pub-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      font-size: 0.84rem;
-    }
-
-    .pub-item {
-      padding: 0.85rem 0.95rem;
-      border-radius: 14px;
-      background: linear-gradient(120deg, rgba(10, 11, 25, 0.9), rgba(6, 7, 18, 0.96));
-      border: 1px solid rgba(255, 255, 255, 0.09);
-    }
-
-    .pub-authors {
-      margin-bottom: 0.1rem;
-    }
-
-    .pub-title {
-      font-weight: 500;
-      margin-bottom: 0.1rem;
-    }
-
-    .pub-venue {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .pub-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      margin-top: 0.3rem;
-    }
-
-    .pub-tag {
-      font-size: 0.7rem;
-      padding: 0.12rem 0.5rem;
-      border-radius: 999px;
-      background: rgba(58, 134, 255, 0.13);
-      color: #dbe7ff;
-      border: 1px solid rgba(58, 134, 255, 0.45);
-    }
-
-    /* Teaching */
-
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 1.4rem;
-      font-size: 0.84rem;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 0.25rem;
-      top: 0.2rem;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px rgba(58, 134, 255, 0.7);
-    }
-
-    .timeline-title {
-      font-weight: 500;
-      margin-bottom: 0.1rem;
-    }
-
-    .timeline-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 0.15rem;
-    }
-
-    /* Contact */
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
-      gap: 1.6rem;
-    }
-
-    @media (max-width: 900px) {
-      .contact-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .contact-card {
-      border-radius: var(--card-radius);
-      background: linear-gradient(135deg, #0b0c1a, #15152b);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      padding: 1.2rem 1.15rem;
-      box-shadow: var(--shadow-soft);
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .contact-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-top: 0.6rem;
-    }
-
-    .contact-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .contact-value {
-      color: #ffffff;
-      font-size: 0.9rem;
-    }
-
-    .social-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-top: 0.85rem;
-      font-size: 0.84rem;
-    }
-
-    .social-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.26rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(5, 6, 18, 0.96);
-      color: #d8ddff;
-    }
-
-    .contact-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.6rem;
-    }
-
-    .contact-side {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-    }
-
-    .contact-side-list {
-      margin-top: 0.7rem;
-      padding-left: 1.1rem;
-    }
-
-    .contact-side-list li {
-      margin-bottom: 0.35rem;
-    }
-
-    /* Footer */
-
-    .footer {
-      padding: 2rem 0 1.4rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-right {
-      display: flex;
-      gap: 0.7rem;
-      flex-wrap: wrap;
-    }
+      .nav-links { display: none; }
+      .nav-menu-toggle { display: inline-flex; }
+      .nav-links.mobile-open { position: absolute; top: 64px; right: 0; left: 0; flex-direction: column; gap: 0.85rem; padding: 1.2rem 1.6rem 1.4rem; background: radial-gradient(circle at top, #16172a 0, #050515 60%); border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .nav-cta { align-self: flex-start; }
+    }
+
+    /* funders */
+    .funders { background: linear-gradient(135deg, #0c0d1e, #13142a); padding: 1.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .funders-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.16em; text-align: center; margin-bottom: 1.1rem; font-family: var(--font-display); }
+    .funders-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
+    .funder-logo-wrap { background: #ffffff; border-radius: 9px; padding: 0.4rem 0.8rem; display: flex; align-items: center; justify-content: center; height: 54px; transition: opacity 0.2s, transform 0.2s; opacity: 0.9; }
+    .funder-logo-wrap:hover { opacity: 1; transform: translateY(-1px); }
+    .funder-logo-wrap img { height: 34px; width: auto; max-width: 100px; object-fit: contain; }
+
+    /* hero */
+    .hero { padding: 3.8rem 0 2.6rem; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,3fr) minmax(0,2fr); gap: 2.8rem; align-items: center; }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+    .hero-kicker { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.75rem; color: var(--accent-strong); text-transform: uppercase; letter-spacing: 0.18em; background: rgba(58,134,255,0.1); padding: 0.22rem 0.7rem; border-radius: 999px; border: 1px solid rgba(58,134,255,0.28); margin-bottom: 1.3rem; font-family: var(--font-display); }
+    .hero-kicker-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-strong); box-shadow: 0 0 8px rgba(255,190,11,0.8); }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.1rem, 3.8vw, 2.85rem); font-weight: 800; line-height: 1.08; margin-bottom: 1rem; }
+    .hero-highlight { background: linear-gradient(120deg, #ffffff, #7ec8ff, #ffbe0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-subtitle { font-size: 0.96rem; color: var(--text-muted); margin-bottom: 1.4rem; max-width: 40rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.8rem; }
+    .tag { font-size: 0.76rem; padding: 0.22rem 0.65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.11); color: var(--text-muted); background: rgba(10,10,30,0.85); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.6rem 1.25rem; border-radius: 999px; font-size: 0.88rem; border: 1px solid transparent; cursor: pointer; transition: transform 0.13s, box-shadow 0.13s; font-family: var(--font-body); }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), #7ec8ff); color: #050510; box-shadow: 0 14px 30px rgba(46,130,255,0.35); }
+    .btn-ghost { border-color: rgba(255,255,255,0.18); background: rgba(5,5,20,0.85); color: var(--text-muted); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(0,0,0,0.65); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.5rem; font-size: 0.78rem; color: var(--text-muted); }
+    .hero-meta-item strong { display: block; color: var(--text); font-weight: 500; margin-bottom: 0.1rem; }
+    .hero-visual { display: flex; justify-content: center; }
+    .hero-card { width: 100%; max-width: 320px; border-radius: 24px; background: radial-gradient(circle at top left, #3a86ff22 0, #050515 40%); border: 1px solid rgba(255,255,255,0.12); padding: 1.15rem; box-shadow: var(--shadow-soft); }
+    .hero-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+    .hero-pill { font-size: 0.68rem; padding: 0.12rem 0.55rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); color: var(--text-muted); background: rgba(8,10,30,0.9); }
+    .hero-chip { font-size: 0.68rem; padding: 0.12rem 0.55rem; border-radius: 999px; color: var(--accent-strong); background: rgba(255,190,11,0.1); border: 1px solid rgba(255,190,11,0.45); }
+    .hero-photo-wrap { border-radius: 999px; width: 110px; height: 110px; overflow: hidden; border: 2px solid rgba(255,255,255,0.35); box-shadow: 0 16px 35px rgba(0,0,0,0.65); margin-bottom: 0.85rem; background: var(--bg-softer); }
+    .hero-photo { width: 100%; height: 100%; object-fit: cover; }
+    .hero-card-body { font-size: 0.79rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* section headers */
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1.2rem; margin-bottom: 1.9rem; }
+    .section-title-wrap { display: flex; align-items: center; gap: 0.7rem; }
+    .section-badge { width: 13px; height: 13px; border-radius: 4px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); box-shadow: 0 0 14px rgba(58,134,255,0.45); }
+    .section-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    .section-subtitle { font-size: 0.84rem; color: var(--text-muted); max-width: 28rem; }
+    @media (max-width: 780px) { .section-header { flex-direction: column; align-items: flex-start; } }
+
+    /* cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.4rem; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+    .card { border-radius: var(--card-radius); background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1.2rem; box-shadow: var(--shadow-subtle); }
+    .card-body { font-size: 0.82rem; color: var(--text-muted); }
+    .card-body p { margin-bottom: 0.55rem; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .pill { font-size: 0.7rem; padding: 0.14rem 0.55rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.13); color: var(--text-muted); background: rgba(4,5,18,0.95); }
+    .card-footer-links { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.85rem; font-size: 0.79rem; }
+    .link-pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.18rem 0.65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.17); background: rgba(9,10,28,0.95); color: #d8ddff; transition: border-color 0.15s, color 0.15s; }
+    .link-pill:hover { border-color: rgba(58,134,255,0.5); color: #fff; }
+
+    /* publications */
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-group-label { font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin: 1.5rem 0 0.65rem; padding-bottom: 0.35rem; border-bottom: 1px solid rgba(58,134,255,0.2); }
+    .pub-group-label:first-child { margin-top: 0; }
+    .pub-item { padding: 0.9rem 1rem; border-radius: 13px; background: linear-gradient(120deg, rgba(10,11,25,0.9), rgba(6,7,18,0.96)); border: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.5rem; transition: border-color 0.15s; }
+    .pub-item:hover { border-color: rgba(58,134,255,0.28); }
+    .pub-authors { font-size: 0.79rem; color: var(--text-muted); margin-bottom: 0.18rem; line-height: 1.5; }
+    .pub-authors strong { color: var(--text); font-weight: 600; }
+    .pub-title { font-size: 0.87rem; font-weight: 500; margin-bottom: 0.14rem; color: var(--text); line-height: 1.45; }
+    .pub-venue { color: var(--accent); font-size: 0.78rem; margin-bottom: 0.22rem; font-style: italic; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.3rem; align-items: center; }
+    .pub-tag { font-size: 0.67rem; padding: 0.1rem 0.48rem; border-radius: 999px; background: rgba(58,134,255,0.12); color: #dbe7ff; border: 1px solid rgba(58,134,255,0.35); }
+    .pub-tag-review { font-size: 0.67rem; padding: 0.1rem 0.48rem; border-radius: 999px; background: rgba(255,190,11,0.1); color: #ffe9a0; border: 1px solid rgba(255,190,11,0.32); }
+
+    /* equipment */
+    .equip-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+    @media (max-width: 900px) { .equip-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 580px) { .equip-grid { grid-template-columns: 1fr; } }
+    .equip-card { border-radius: 14px; background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1rem 1.1rem; }
+    .equip-card-title { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    .equip-list { list-style: none; display: flex; flex-direction: column; gap: 0.28rem; }
+    .equip-list li { font-size: 0.78rem; color: var(--text-muted); padding-left: 0.9rem; position: relative; line-height: 1.45; }
+    .equip-list li::before { content: "·"; position: absolute; left: 0; color: var(--accent); }
+
+    /* awards */
+    .award-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .award-item { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.75rem 0.95rem; border-radius: 12px; background: rgba(10,11,25,0.9); border: 1px solid rgba(255,255,255,0.08); }
+    .award-icon { font-size: 1.05rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .award-title { font-size: 0.83rem; font-weight: 500; color: var(--text); margin-bottom: 0.1rem; }
+    .award-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* teaching */
+    .timeline { display: flex; flex-direction: column; gap: 1rem; }
+    .timeline-item { position: relative; padding-left: 1.4rem; font-size: 0.83rem; }
+    .timeline-dot { position: absolute; left: 0.2rem; top: 0.22rem; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px rgba(58,134,255,0.7); }
+    .timeline-title { font-family: var(--font-display); font-weight: 600; margin-bottom: 0.1rem; }
+    .timeline-meta { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 0.15rem; }
+
+    /* contact */
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1.6fr); gap: 1.6rem; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card { border-radius: var(--card-radius); background: linear-gradient(135deg, #0b0c1a, #15152b); border: 1px solid rgba(255,255,255,0.15); padding: 1.25rem 1.2rem; box-shadow: var(--shadow-soft); font-size: 0.88rem; color: var(--text-muted); }
+    .contact-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.85rem; }
+    .contact-row { display: flex; flex-direction: column; gap: 0.6rem; }
+    .contact-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.08rem; }
+    .contact-value { color: #ffffff; font-size: 0.88rem; }
+    .contact-value a:hover { color: var(--accent); }
+    .social-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; font-size: 0.82rem; }
+    .social-pill { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.26rem 0.72rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.17); background: rgba(5,6,18,0.96); color: #d8ddff; transition: border-color 0.15s, color 0.15s; }
+    .social-pill:hover { border-color: rgba(58,134,255,0.5); color: #fff; }
+    .contact-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.85rem; }
+    .stats-card { border-radius: var(--card-radius); background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1.25rem; }
+    .stats-card h3 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.75rem; }
+    .stat-box { background: rgba(58,134,255,0.07); border: 1px solid rgba(58,134,255,0.17); border-radius: 12px; padding: 0.7rem 0.85rem; }
+    .stat-value { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+    /* footer */
+    .footer { padding: 2rem 0 1.4rem; border-top: 1px solid rgba(255,255,255,0.07); font-size: 0.77rem; color: var(--text-muted); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="shell">
-      <div class="nav-inner">
-        <a href="#top" class="nav-brand">
-          <div class="nav-logo">
-            <!-- Replace with your headshot -->
-            <img src="assets/headshot.jpg" alt="Portrait of Bishal Roy">
-          </div>
-          <div class="nav-brand-text">
-            <span class="nav-name">Bishal Roy</span>
-            <span class="nav-role">Geoinformatics · GeoAI · Remote Sensing</span>
-          </div>
+<header class="nav">
+  <div class="shell">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">
+        <div class="nav-logo">BR</div>
+        <div class="nav-brand-text">
+          <span class="nav-name">Bishal Roy</span>
+          <span class="nav-role">Geoinformatics · GeoAI · Remote Sensing</span>
+        </div>
+      </a>
+      <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#publications" class="nav-link">Publications</a>
+        <a href="#equipment" class="nav-link">Equipment</a>
+        <a href="#awards" class="nav-link">Awards</a>
+        <a href="#teaching" class="nav-link">Teaching</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="assets/Bishal_Roy_CV.pdf" class="nav-cta" target="_blank" rel="noreferrer">
+          <span class="nav-cta-dot"></span><span>CV</span>
         </a>
-        <button class="nav-menu-toggle" aria-label="Toggle navigation menu" id="menuToggle">
-          ☰
-        </button>
-        <nav class="nav-links" id="navLinks">
-          <a href="#about" class="nav-link">About</a>
-          <a href="#research" class="nav-link">Research</a>
-          <a href="#projects" class="nav-link">Projects</a>
-          <a href="#publications" class="nav-link">Publications</a>
-          <a href="#teaching" class="nav-link">Teaching</a>
-          <a href="#contact" class="nav-link">Contact</a>
-          <a href="assets/Bishal_Roy_CV.pdf" class="nav-cta" target="_blank" rel="noreferrer">
-            <span class="nav-cta-dot"></span>
-            <span>CV</span>
-          </a>
-        </nav>
-      </div>
-    </div>
-  </header>
-<!-- Funders Section -->
-<section style="background: linear-gradient(135deg, #0b0c1a, #15152b); padding: 2rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-  <div class="shell" style="text-align: center;">
-    <h3 style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em;">Research Supported By</h3>
-    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2.5rem; max-width: 1000px; margin: 0 auto;">
-      <img src="assets/logo_nsf.png" alt="NSF" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_usda.png" alt="USDA" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_usgs.png" alt="USGS" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_salk.png" alt="Salk Harnessing Plants Initiative" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_arpae.png" alt="ARPA-E" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_doe.png" alt="Department of Energy" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_usb.png" alt="United Soybean Board" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
-      <img src="assets/logo_ffar.png" alt="Foundation for Food and Agricultural Research" style="height: 60px; width: auto; object-fit: contain; opacity: 0.85; transition: opacity 0.3s;">
+      </nav>
     </div>
   </div>
-</section>
-  <!-- Hero -->
-  <main id="top">
-    <section class="hero">
-      <div class="shell hero-grid">
-        <div>
-          <div class="hero-kicker">
-            <div class="hero-kicker-dot"></div>
-            <span>Subsurface carbon with GeoAI</span>
-          </div>
+</header>
 
-          <h1 class="hero-title">
-            <span class="hero-highlight">Geospatial AI for the terrestrial carbon cycle</span>
-          </h1>
+<div class="funders">
+  <div class="shell">
+    <p class="funders-label">Research Supported By</p>
+    <div class="funders-row">
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/NSF_logo.png/500px-NSF_logo.png" alt="NSF"></div>
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/USDA_logo.png/960px-USDA_logo.png" alt="USDA"></div>
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/USGS_logo.png" alt="USGS"></div>
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/ARPA-E_logo_2021.png" alt="ARPA-E"></div>
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png" alt="Department of Energy"></div>
+      <div class="funder-logo-wrap"><img src="https://nfg-sofun.s3.amazonaws.com/uploads/ui_configuration/main_logo/7990/welcome_logo_salk_logo_tag_blue_vt.png" alt="Salk Institute"></div>
+      <div class="funder-logo-wrap"><img src="https://unitedsoybean.org/wp-content/uploads/2024/06/USB_Preferred_RGB_GRN348_C-e1718813442856.jpg" alt="United Soybean Board"></div>
+      <div class="funder-logo-wrap"><img src="https://foundationfar.org/wp-content/uploads/2022/07/ffarFT-rgb-color-onlight-1.png" alt="FFAR"></div>
+    </div>
+  </div>
+</div>
 
-          <p class="hero-subtitle">
-            I am a PhD candidate in Geoinformatics and Geospatial Analytics at Saint Louis University.
-            My research combines hyperspectral remote sensing, LiDAR, and physics informed learning
-            to estimate soil organic carbon up to 150 cm depth and understand how agroecosystems store carbon.
-          </p>
-
-          <div class="hero-tags">
-            <span class="tag">Hyperspectral and LiDAR fusion</span>
-            <span class="tag">Soil organic carbon mapping</span>
-            <span class="tag">Physics aware neural networks</span>
-            <span class="tag">GeoAI for agroecosystems</span>
-          </div>
-
-          <div class="hero-actions">
-            <a href="#research" class="btn btn-primary">
-              <span class="icon">▶</span>
-              <span>Explore research highlights</span>
-            </a>
-            <a href="#projects" class="btn btn-ghost">
-              <span class="icon">★</span>
-              <span>See code and projects</span>
-            </a>
-          </div>
-
-          <div class="hero-meta">
-            <div class="hero-meta-item">
-              <strong>Doctoral research</strong>
-              Generative GeoAI for subsurface prediction and carbon accounting
-            </div>
-            <div class="hero-meta-item">
-              <strong>Affiliation</strong>
-              Remote Sensing Lab, Saint Louis University and Taylor Geospatial Institute
-            </div>
-          </div>
+<main id="top">
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="hero-kicker"><div class="hero-kicker-dot"></div><span>Physics-aware GeoAI · Subsurface carbon</span></div>
+        <h1 class="hero-title"><span class="hero-highlight">Geospatial AI for the terrestrial carbon cycle</span></h1>
+        <p class="hero-subtitle">I am a PhD candidate in Geoinformatics and Geospatial Analytics at Saint Louis University. My research applies physics-informed machine learning and foundation models to Earth observation data, advancing precision agriculture, soil carbon monitoring, and geospatial decision support.</p>
+        <div class="hero-tags">
+          <span class="tag">Hyperspectral remote sensing</span>
+          <span class="tag">Depth-resolved SOC mapping</span>
+          <span class="tag">Physics-aware neural networks</span>
+          <span class="tag">Foundation models for Earth observation</span>
+          <span class="tag">GeoAI for agroecosystems</span>
         </div>
-
-        <div class="hero-visual">
-          <article class="hero-card">
-            <div class="hero-card-header">
-              <span class="hero-pill">Soil carbon · Agroecosystems</span>
-              <span class="hero-chip">Up to 150 cm depth</span>
-            </div>
-            <div class="hero-photo-wrap">
-              <!-- Replace with a stylized portrait or field photo -->
-              <img src="assets/field_uav.jpg" alt="UAV based hyperspectral data collection over sorghum field" class="hero-photo">
-            </div>
-            <div class="hero-card-body">
-              Depth resolved soil carbon maps derived from UAV hyperspectral and LiDAR data,
-              regularized by physics based constraints and validated with multi depth soil cores.
-              Models are tested across years to measure stability under changing management and climate.
-              <div class="hero-small-metric">
-                <div class="hero-small-metric-item">
-                  <span class="metric-label">Peer reviewed papers</span>
-                  <span class="metric-value">11+</span>
-                </div>
-                <div class="hero-small-metric-item">
-                  <span class="metric-label">Depth intervals</span>
-                  <span class="metric-value">0 to 150 cm</span>
-                </div>
-                <div class="hero-small-metric-item">
-                  <span class="metric-label">Platforms</span>
-                  <span class="metric-value">UAV and gantry</span>
-                </div>
-              </div>
-            </div>
-          </article>
+        <div class="hero-actions">
+          <a href="#publications" class="btn btn-primary"><span>📄</span><span>Publications</span></a>
+          <a href="#contact" class="btn btn-ghost"><span>✉</span><span>Get in touch</span></a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item"><strong>Doctoral research</strong>Foundation models for subsurface prediction &amp; carbon accounting</div>
+          <div class="hero-meta-item"><strong>Affiliation</strong>Remote Sensing Lab, Saint Louis University &amp; Taylor Geospatial Institute</div>
         </div>
       </div>
-    </section>
-
-    <!-- About -->
-    <section id="about">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">About</h2>
+      <div class="hero-visual">
+        <article class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-pill">Soil carbon · Agroecosystems</span>
+            <span class="hero-chip">Multi-depth inference</span>
           </div>
-          <p class="section-subtitle">
-            I work at the interface of remote sensing, soil science, and machine learning. The goal is to turn
-            rich spectral and structural information into actionable estimates of subsurface carbon and ecosystem function.
-          </p>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-body">
-              <p>
-                My background spans both academic research and practical geospatial analysis. I hold a Masters in
-                Geographic Information Science and I am currently an ABD PhD candidate in Geoinformatics and Geospatial
-                Analytics at Saint Louis University, where I serve as a Graduate Assistant in the Remote Sensing Lab.
-              </p>
-              <p>
-                My work focuses on depth resolved soil organic carbon mapping in sorghum and other cropping systems
-                using UAV based VNIR SWIR hyperspectral imagery, LiDAR, and multi scale field measurements.
-              </p>
-              <p>
-                Methodologically, I am interested in physics aware neural networks, texture based features,
-                and spectral transformations that respect soil physics and radiative transfer.
-              </p>
-            </div>
+          <div class="hero-photo-wrap">
+            <img src="assets/headshot.jpg" alt="Bishal Roy" class="hero-photo">
           </div>
-          <div class="card">
-            <div class="card-body">
-              <p><strong>Research interests</strong></p>
-              <div class="pill-row">
-                <span class="pill">Hyperspectral imaging of soil and vegetation</span>
-                <span class="pill">Subsurface carbon mapping</span>
-                <span class="pill">Physics informed and physics aware deep learning</span>
-                <span class="pill">Multimodal fusion of UAV hyperspectral, LiDAR, and satellite data</span>
-                <span class="pill">Spatio temporal modeling of agroecosystems</span>
-                <span class="pill">Open and reproducible geospatial workflows</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          <div class="hero-card-body">Developing foundational models that integrate multimodal sensing to generate depth-resolved soil carbon maps, physics-constrained and validated against laboratory-analyzed soil cores — enabling actionable geospatial intelligence for agriculture, conservation, and environmental management.</div>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Research highlights -->
-    <section id="research">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">Research highlights</h2>
-          </div>
-          <p class="section-subtitle">
-            Selected lines of work across hyperspectral remote sensing, soil organic carbon estimation,
-            and physics informed GeoAI. Replace the banner images with figures or field photos from each project.
-          </p>
-        </div>
-
-        <div class="grid-3">
-          <!-- Physics aware neural framework -->
-          <article class="card">
-            <div class="card-banner-image">
-              <!-- Replace with project figure -->
-              <img src="assets/research_physoai.jpg" alt="Diagram of physics aware neural framework for multidepth soil carbon mapping">
-            </div>
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">Physics aware neural framework for multidepth soil carbon mapping</h3>
-                <p class="card-meta">IEEE Geoscience and Remote Sensing Letters</p>
-              </div>
-              <span class="card-label">Depth resolved SOC</span>
-            </div>
-            <div class="card-body">
-              <p>
-                A neural framework that combines UAV multispectral and hyperspectral predictors with depth specific
-                constraints that enforce vertical smoothness and mass balance of soil organic carbon stocks.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Physics aware loss design</span>
-                <span class="pill">Multi depth SOC up to 150 cm</span>
-                <span class="pill">Comparison with linear mixed effects models</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">
-                  <span class="icon">⇱</span> <span>Paper</span>
-                </a>
-                <a class="link-pill" href="https://scholar.google.com" target="_blank" rel="noreferrer">
-                  <span class="icon">⊕</span> <span>Citation record</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Hyperspectral wavelet based SOC estimation -->
-          <article class="card">
-            <div class="card-banner-image">
-              <img src="assets/research_wavelet_soc.jpg" alt="Wavelet based soil organic carbon estimation from hyperspectral imagery">
-            </div>
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">Wavelet based SOC estimation from hyperspectral imagery</h3>
-                <p class="card-meta">IEEE Transactions on Geoscience and Remote Sensing</p>
-              </div>
-              <span class="card-label">Spectral transforms</span>
-            </div>
-            <div class="card-body">
-              <p>
-                A wavelet transform pipeline for hyperspectral reflectance that captures soil specific absorption
-                patterns while controlling noise, followed by machine learning regression for SOC estimation.
-              </p>
-              <div class="pill-row">
-                <span class="pill">AVIRIS and field spectra</span>
-                <span class="pill">Wavelet based feature extraction</span>
-                <span class="pill">Random forest and SVR baselines</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://ieeexplore.ieee.org" target="_blank" rel="noreferrer">
-                  <span class="icon">⇱</span> <span>Paper</span>
-                </a>
-                <a class="link-pill" href="#projects">
-                  <span class="icon">💻</span> <span>Code workflow</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Land cover dynamics -->
-          <article class="card">
-            <div class="card-banner-image">
-              <img src="assets/research_landcover.jpg" alt="Spatio temporal land cover change in coastal Bangladesh">
-            </div>
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">Spatio temporal land cover dynamics in coastal Bangladesh</h3>
-                <p class="card-meta">Environmental Challenges</p>
-              </div>
-              <span class="card-label">Time series</span>
-            </div>
-            <div class="card-body">
-              <p>
-                A machine learning framework for monitoring and forecasting land cover change in Coxs Bazar
-                from 2001 to 2019, integrating satellite time series with local drivers of change.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Time series analysis</span>
-                <span class="pill">Change detection</span>
-                <span class="pill">Coastal management</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100237" target="_blank" rel="noreferrer">
-                  <span class="icon">⇱</span> <span>Paper</span>
-                </a>
-              </div>
-            </div>
-          </article>
-        </div>
+  <section id="about">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">About</h2></div>
+        <p class="section-subtitle">Remote sensing, soil science, and machine learning — turned into actionable subsurface intelligence.</p>
       </div>
-    </section>
-
-    <!-- Projects and code -->
-    <section id="projects">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">Code and projects</h2>
-          </div>
-          <p class="section-subtitle">
-            A selection of pipelines and teaching resources. You can link each card to the corresponding GitHub
-            repository, notebook, or StoryMap.
-          </p>
-        </div>
-
-        <div class="grid-3">
-          <!-- Project 1 -->
-          <article class="card">
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">UAV hyperspectral georeferencing and preprocessing</h3>
-                <p class="card-meta">Python · GDAL · custom workflows</p>
-              </div>
-              <span class="card-label">Pipeline</span>
-            </div>
-            <div class="card-body">
-              <p>
-                End to end scripts for UAV borne hyperspectral data, including gantry and flight metadata parsing,
-                radiometric correction, geometric correction, and cube tiling for machine learning.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Python and GDAL</span>
-                <span class="pill">ArcGIS Pro integration</span>
-                <span class="pill">Splice correction and noise control</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://github.com" target="_blank" rel="noreferrer">
-                  <span class="icon">💻</span> <span>GitHub</span>
-                </a>
-                <a class="link-pill" href="#research">
-                  <span class="icon">⇲</span> <span>Used in SOC mapping</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="card">
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">Soil spectral transformations teaching notebook</h3>
-                <p class="card-meta">R · Python · postgraduate lab</p>
-              </div>
-              <span class="card-label">Teaching</span>
-            </div>
-            <div class="card-body">
-              <p>
-                Instructional notebooks on soil spectral transformations, including derivatives, continuum removal,
-                wavelets, and texture features, with visual comparisons and links to physical interpretation.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Hyperspectral soil spectra</span>
-                <span class="pill">Transform comparison plots</span>
-                <span class="pill">Correlation with soil properties</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://github.com" target="_blank" rel="noreferrer">
-                  <span class="icon">📓</span> <span>Notebooks</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="card">
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-title">Change direction visualizer</h3>
-                <p class="card-meta">Interactive GIS tool</p>
-              </div>
-              <span class="card-label">Visualization</span>
-            </div>
-            <div class="card-body">
-              <p>
-                A small visual analytics tool for exploring directional change in geospatial fields. Designed as
-                a teaching resource and exploratory interface for spatial pattern analysis.
-              </p>
-              <div class="pill-row">
-                <span class="pill">Interactive visualization</span>
-                <span class="pill">Spatial patterns</span>
-              </div>
-              <div class="card-footer-links">
-                <a class="link-pill" href="https://github.com" target="_blank" rel="noreferrer">
-                  <span class="icon">💻</span> <span>GitHub</span>
-                </a>
-                <a class="link-pill" href="https://github.com" target="_blank" rel="noreferrer">
-                  <span class="icon">▶</span> <span>Live demo</span>
-                </a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Publications -->
-    <section id="publications">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">Selected publications</h2>
-          </div>
-          <p class="section-subtitle">
-            A subset of peer reviewed work. For a complete and up to date list, see Google Scholar.
-          </p>
-        </div>
-
+      <div class="grid-2">
         <div class="card">
           <div class="card-body">
-            <div class="pub-list">
-              <div class="pub-item">
-                <div class="pub-authors">
-                  <strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., Gul, C., and Shakoor, N.
-                </div>
-                <div class="pub-title">
-                  Physics aware neural framework for multidepth soil carbon mapping.
-                </div>
-                <div class="pub-venue">
-                  IEEE Geoscience and Remote Sensing Letters, 2026.
-                </div>
-                <div class="pub-links">
-                  <span class="pub-tag">Depth resolved SOC</span>
-                  <a class="link-pill" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">
-                    <span class="icon">⇱</span> <span>DOI</span>
-                  </a>
-                </div>
-              </div>
-
-              <div class="pub-item">
-                <div class="pub-authors">
-                  <strong>Roy, B.</strong>, Sagan, V., Haireti, A., Saxton, J., Ghoreishi, D., and Shakoor, N.
-                </div>
-                <div class="pub-title">
-                  Soil carbon estimation from hyperspectral imagery with wavelet based feature extraction.
-                </div>
-                <div class="pub-venue">
-                  IEEE Transactions on Geoscience and Remote Sensing, 2024.
-                </div>
-                <div class="pub-links">
-                  <span class="pub-tag">Hyperspectral wavelets</span>
-                  <a class="link-pill" href="https://ieeexplore.ieee.org" target="_blank" rel="noreferrer">
-                    <span class="icon">⇱</span> <span>Paper</span>
-                  </a>
-                </div>
-              </div>
-
-              <div class="pub-item">
-                <div class="pub-authors">
-                  <strong>Roy, B.</strong>
-                </div>
-                <div class="pub-title">
-                  A machine learning approach to monitoring and forecasting spatio temporal dynamics of land cover
-                  in Coxs Bazar District, Bangladesh from 2001 to 2019.
-                </div>
-                <div class="pub-venue">
-                  Environmental Challenges, 2021.
-                </div>
-                <div class="pub-links">
-                  <span class="pub-tag">Land cover change</span>
-                  <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100237" target="_blank" rel="noreferrer">
-                    <span class="icon">⇱</span> <span>DOI</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-footer-links" style="margin-top: 1.1rem;">
-              <a class="link-pill" href="https://scholar.google.com" target="_blank" rel="noreferrer">
-                <span class="icon">⊕</span> <span>Google Scholar</span>
-              </a>
-              <a class="link-pill" href="https://orcid.org" target="_blank" rel="noreferrer">
-                <span class="icon">◎</span> <span>ORCID</span>
-              </a>
-            </div>
+            <p>I hold a Master's in Geographic Information Science and am currently an ABD PhD candidate in Geoinformatics and Geospatial Analytics at Saint Louis University, where I serve as a Graduate Research Assistant in the Remote Sensing Lab.</p>
+            <p>My work focuses on depth-resolved soil organic carbon mapping using hyperspectral imagery and multi-scale field measurements across multi-year field campaigns in sorghum and other cropping systems.</p>
+            <p>Methodologically I am interested in physics-aware neural networks, wavelet-based spectral transforms, and foundation model embeddings that respect soil physics and radiative transfer to push inference below what surface optics can directly sense.</p>
           </div>
         </div>
-
-      </div>
-    </section>
-
-    <!-- Teaching -->
-    <section id="teaching">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">Teaching and mentoring</h2>
-          </div>
-          <p class="section-subtitle">
-            I teach remote sensing and geospatial analytics with a focus on linking measurement, modeling, and purpose.
-          </p>
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-body">
-              <p>
-                I have served as Assistant Instructor for introductory and advanced remote sensing courses at
-                Saint Louis University, leading labs on UAV photogrammetry, LiDAR, and hyperspectral data analysis.
-              </p>
-              <p>
-                Before that, I taught remote sensing and applied remote sensing labs at Begum Rokeya University
-                with field expeditions focused on land cover mapping and environmental monitoring.
-              </p>
+        <div class="card">
+          <div class="card-body">
+            <p><strong>Research interests</strong></p>
+            <div class="pill-row">
+              <span class="pill">Hyperspectral imaging of soil and vegetation</span>
+              <span class="pill">Depth-resolved subsurface carbon mapping</span>
+              <span class="pill">Physics-informed and physics-aware deep learning</span>
+              <span class="pill">Multimodal sensor fusion</span>
+              <span class="pill">Foundation models for Earth observation</span>
+              <span class="pill">Spatio-temporal modeling of agroecosystems</span>
+              <span class="pill">Proactive crop stress forecasting</span>
+              <span class="pill">Open and reproducible geospatial workflows</span>
             </div>
           </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="timeline">
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">Assistant Instructor, Remote Sensing</div>
-                  <div class="timeline-meta">Saint Louis University · Undergraduate and graduate levels</div>
-                  <div>Labs on UAV operations, spectral indices, LiDAR, and hyperspectral workflows.</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">Course instructor, Remote Sensing and lab</div>
-                  <div class="timeline-meta">Begum Rokeya University</div>
-                  <div>Designed full syllabi, field mapping campaigns, and hands on image analysis modules.</div>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">Mentoring field and coding teams</div>
-                  <div class="timeline-meta">Multi person teams for soil and plant measurements</div>
-                  <div>Supervised teams on soil sampling, sensor deployment, and reproducible coding pipelines.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="shell">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <div class="section-badge"></div>
-            <h2 class="section-title">Contact and links</h2>
-          </div>
-          <p class="section-subtitle">
-            For collaborations on hyperspectral soil studies, GeoAI, or geospatial analytics teaching,
-            feel free to get in touch.
-          </p>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-card">
-            <h3>Contact</h3>
-            <div class="contact-row">
-              <div>
-                <div class="contact-label">Email</div>
-                <div class="contact-value">
-                  <a href="mailto:prantoroy@gmail.com">prantoroy@gmail.com</a>
-                </div>
-              </div>
-              <div>
-                <div class="contact-label">Location</div>
-                <div class="contact-value">Saint Louis, Missouri, USA</div>
-              </div>
-            </div>
-
-            <div class="social-row">
-              <a class="social-pill" href="https://github.com" target="_blank" rel="noreferrer">
-                <span class="icon">💻</span> <span>GitHub</span>
-              </a>
-              <a class="social-pill" href="https://scholar.google.com" target="_blank" rel="noreferrer">
-                <span class="icon">⊕</span> <span>Google Scholar</span>
-              </a>
-              <a class="social-pill" href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-                <span class="icon">in</span> <span>LinkedIn</span>
-              </a>
-              <a class="social-pill" href="https://orcid.org" target="_blank" rel="noreferrer">
-                <span class="icon">◎</span> <span>ORCID</span>
-              </a>
-              <a class="social-pill" href="https://storymaps.arcgis.com" target="_blank" rel="noreferrer">
-                <span class="icon">⤳</span> <span>StoryMaps</span>
-              </a>
-            </div>
-
-            <p class="contact-note">
-              For student mentoring or speaking invitations, please include a short note on the audience and topic.
-            </p>
-          </div>
-
-          <div class="contact-side">
-            <p><strong>How to use this site</strong></p>
-            <ul class="contact-side-list">
-              <li>Replace image paths in the hero and research cards with your headshot and project figures.</li>
-              <li>Update links in the projects section to point to specific GitHub repositories or demos.</li>
-              <li>Extend the publications list or connect it to a BibTeX export if you want a complete record.</li>
-              <li>Connect CV, Google Scholar, and StoryMap links to your preferred public profiles.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="shell">
-      <div class="footer-inner">
-        <div>© <span id="year"></span> Bishal Roy</div>
-        <div class="footer-right">
-          <span>Remote Sensing Lab · Saint Louis University</span>
         </div>
       </div>
     </div>
-  </footer>
+  </section>
+
+  <section id="publications">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Publications</h2></div>
+        <p class="section-subtitle">Complete list. For citation counts see Google Scholar.</p>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="pub-list">
+
+            <div class="pub-group-label">Journal Articles</div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., Gul, C., and Shakoor, N.</div>
+              <div class="pub-title">Physics-Aware Neural Framework for Multidepth Soil Carbon Mapping.</div>
+              <div class="pub-venue">IEEE Geoscience and Remote Sensing Letters, vol. 23, 2026, pp. 1–5.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Depth-resolved SOC</span><span class="pub-tag">Physics-informed</span>
+                <a class="link-pill" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., Ghoreishi, D., and Shakoor, N.</div>
+              <div class="pub-title">Soil Carbon Estimation From Hyperspectral Imagery With Wavelet Decomposition and Frame Theory.</div>
+              <div class="pub-venue">IEEE Transactions on Geoscience and Remote Sensing, vol. 62, 2024, pp. 1–12.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Hyperspectral wavelets</span><span class="pub-tag">Frame theory</span>
+                <a class="link-pill" href="https://doi.org/10.1109/TGRS.2024.3461628" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors">Giri, A., Sagan, V., Alifu, H., Maiwulanjiang, A., Sarkar, S., <strong>Roy, B.</strong>, and Fritschi, F.B.</div>
+              <div class="pub-title">A Wavelet Decomposition Method for Estimating Soybean Seed Composition with Hyperspectral Data.</div>
+              <div class="pub-venue">Remote Sensing, vol. 16, no. 23, Dec. 2024, p. 4594.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Soybean composition</span><span class="pub-tag">Wavelets</span>
+                <a class="link-pill" href="https://doi.org/10.3390/rs16234594" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Newcomb, M., Tuberosa, R., LeBauer, D., and Shakoor, N.</div>
+              <div class="pub-title">Early Detection of Drought Stress in Durum Wheat Using Hyperspectral Imaging and Photosystem Sensing.</div>
+              <div class="pub-venue">Remote Sensing, vol. 16, no. 1, Dec. 2023, p. 155.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Drought stress</span><span class="pub-tag">TERRA-REF</span>
+                <a class="link-pill" href="https://doi.org/10.3390/rs16010155" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong> and Rahman, M.Z.</div>
+              <div class="pub-title">Spatio-Temporal Analysis and Cellular Automata-Based Simulations of Biophysical Indicators under the Scenario of Climate Change and Urbanization Using Artificial Neural Network.</div>
+              <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 31, Aug. 2023, p. 100992.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Urban expansion</span><span class="pub-tag">ANN-CA</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2023.100992" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong> and Bari, E.</div>
+              <div class="pub-title">Examining the Relationship between Land Surface Temperature and Landscape Features Using Spectral Indices with Google Earth Engine.</div>
+              <div class="pub-venue">Heliyon, vol. 8, no. 9, Sept. 2022, p. e10668.</div>
+              <div class="pub-links">
+                <span class="pub-tag">LST</span><span class="pub-tag">Google Earth Engine</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.heliyon.2022.e10668" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong></div>
+              <div class="pub-title">Optimum Machine Learning Algorithm Selection for Forecasting Vegetation Indices: MODIS NDVI &amp; EVI.</div>
+              <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 23, Aug. 2021, p. 100582.</div>
+              <div class="pub-links">
+                <span class="pub-tag">NDVI · EVI</span><span class="pub-tag">ML comparison</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100582" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Bari, E., Nipa, N.J., and Ani, S.A.</div>
+              <div class="pub-title">Comparison of Temporal Changes in Urban Settlements and Land Surface Temperature in Rangpur and Gazipur Sadar, Bangladesh after the Establishment of City Corporation.</div>
+              <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 23, Aug. 2021, p. 100587.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Urban heat</span><span class="pub-tag">Bangladesh</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100587" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong></div>
+              <div class="pub-title">A Machine Learning Approach to Monitoring and Forecasting Spatio-Temporal Dynamics of Land Cover in Cox's Bazar District, Bangladesh from 2001 to 2019.</div>
+              <div class="pub-venue">Environmental Challenges, vol. 5, Dec. 2021, p. 100237.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Land cover change</span><span class="pub-tag">Time series</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100237" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors">Bari, E., Nipa, N.J., and <strong>Roy, B.</strong></div>
+              <div class="pub-title">Association of Vegetation Indices with Atmospheric &amp; Biological Factors Using MODIS Time Series Products.</div>
+              <div class="pub-venue">Environmental Challenges, vol. 5, Dec. 2021, p. 100376.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Vegetation indices</span><span class="pub-tag">MODIS</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100376" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-group-label">Conference Papers (Peer Reviewed)</div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong> and Sagan, V.</div>
+              <div class="pub-title">Geolocating Images Using Solar and Scanning Geometry.</div>
+              <div class="pub-venue">IGARSS 2025 — 45th IEEE International Geoscience and Remote Sensing Symposium, pp. 8896–8899.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Geolocation</span><span class="pub-tag">Solar geometry</span>
+                <a class="link-pill" href="https://doi.org/10.1109/IGARSS55030.2025.11243632" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., and Shakoor, N.</div>
+              <div class="pub-title">Comparative Analysis of Wavelet Transformation Techniques in Enhancing Soil Organic Carbon Detection Through Hyperspectral Imaging.</div>
+              <div class="pub-venue">IGARSS 2024 — 44th IEEE International Geoscience and Remote Sensing Symposium, pp. 8010–8014.</div>
+              <div class="pub-links">
+                <span class="pub-tag">Wavelet comparison</span><span class="pub-tag">SOC detection</span>
+                <a class="link-pill" href="https://doi.org/10.1109/IGARSS53475.2024.10641176" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
+            </div>
+
+            <div class="pub-group-label">Under Review &amp; In Preparation</div>
+
+            <div class="pub-item">
+              <div class="pub-authors">Patel, A.K., Sagan, V., Baser, T., Ozdemir, S.K., Johnson, J.T., Lanagan, M.T., Iwahana, G., Shrestha, N., Islam, J., and <strong>Roy, B.</strong></div>
+              <div class="pub-title">Recent Advances in Remote Sensing of Permafrost: A Review.</div>
+              <div class="pub-venue">Under Review — Earth-Science Reviews.</div>
+              <div class="pub-links"><span class="pub-tag-review">Under Review</span></div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors">Alifu, H., Sagan, V., Maiwulanjiang, A., Sarkar, S., Al Akkad, O., <strong>Roy, B.</strong>, Ye, H., Raju, D., and Nguyen, H.</div>
+              <div class="pub-title">Adversarial Domain Alignment Improves Root Biomass Prediction from SkySat Imagery.</div>
+              <div class="pub-venue">Under Review — IEEE Geoscience and Remote Sensing Letters.</div>
+              <div class="pub-links"><span class="pub-tag-review">Under Review</span></div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Gul, C., and Shakoor, N.</div>
+              <div class="pub-title">Foundation Model Embeddings for Subsurface Soil Carbon Estimation: Beyond Optical Imagery.</div>
+              <div class="pub-venue">Under Review — IGARSS 2026, IEEE International Geoscience and Remote Sensing Symposium.</div>
+              <div class="pub-links"><span class="pub-tag-review">Under Review</span></div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Saxton, J., Gul, C., and Shakoor, N.</div>
+              <div class="pub-title">A Unified Generative Framework for Subsurface Carbon Simulation: Integrating Surface Optics with Foundation Model Embeddings.</div>
+              <div class="pub-venue">In Preparation.</div>
+              <div class="pub-links"><span class="pub-tag-review">In Preparation</span></div>
+            </div>
+
+          </div>
+          <div class="card-footer-links" style="margin-top:1.3rem;">
+            <a class="link-pill" href="https://scholar.google.com/citations?user=S3oCb8EAAAAJ&hl=en" target="_blank" rel="noreferrer">⊕ Google Scholar</a>
+            <a class="link-pill" href="https://orcid.org/0000-0001-9912-5505" target="_blank" rel="noreferrer">◎ ORCID</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipment">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Instrumentation</h2></div>
+        <p class="section-subtitle">Research-grade sensor systems used across field campaigns and laboratory settings.</p>
+      </div>
+      <div class="equip-grid">
+        <div class="equip-card">
+          <div class="equip-card-title">UAV Hyperspectral</div>
+          <ul class="equip-list">
+            <li>Headwall VNIR+SWIR co-aligned sensor</li>
+            <li>Headwall Nano VNIR + FLIR thermal</li>
+            <li>HySpex Mjolnir VS-620 VNIR+SWIR</li>
+          </ul>
+        </div>
+        <div class="equip-card">
+          <div class="equip-card-title">Benchtop &amp; Ground Systems</div>
+          <ul class="equip-list">
+            <li>HySpex VNIR3000N + SWIR640 benchtop scanner</li>
+            <li>Specim IQ VNIR hyperspectral</li>
+            <li>PSR 3500+ VIS-NIR-SWIR spectroradiometer</li>
+          </ul>
+        </div>
+        <div class="equip-card">
+          <div class="equip-card-title">Multispectral &amp; Thermal</div>
+          <ul class="equip-list">
+            <li>ITERES uTABI-640 cooled thermal</li>
+            <li>ICI 8640 P-Series thermal imaging</li>
+            <li>FLIR Vue Pro R thermal</li>
+            <li>MicaSense RedEdge and Altum</li>
+          </ul>
+        </div>
+        <div class="equip-card">
+          <div class="equip-card-title">UAV Platforms (DoD-compliant)</div>
+          <ul class="equip-list">
+            <li>Inspired Flight IF1200A</li>
+            <li>Skydio X10 and X2 (8 units)</li>
+            <li>Alta X</li>
+          </ul>
+        </div>
+        <div class="equip-card">
+          <div class="equip-card-title">LiDAR Sensors</div>
+          <ul class="equip-list">
+            <li>Riegl Vux-120</li>
+            <li>Riegl MiniVux</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Awards &amp; recognition</h2></div>
+        <p class="section-subtitle">Competitive honors received during doctoral training.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="award-list">
+              <div class="award-item">
+                <div class="award-icon">🥈</div>
+                <div><div class="award-title">SLU Sigma Xi Research Symposium — 2nd Place</div><div class="award-meta">Graduate Physical Sciences and Engineering · Saint Louis University</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🎤</div>
+                <div><div class="award-title">3 Minute Thesis Competition — 3rd Place</div><div class="award-meta">Doctoral Category · Saint Louis University</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">✈️</div>
+                <div><div class="award-title">Dean's Travel Grant × 3</div><div class="award-meta">SLU School of Science and Engineering — AGU Fall Meeting 2023, AAG Annual Meeting 2024, AGU Fall Meeting 2025</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="award-list">
+              <div class="award-item">
+                <div class="award-icon">🥇</div>
+                <div><div class="award-title">1st Runner-up — 18th SMC Development Category</div><div class="award-meta">SuperMap GIS · Nov 2020 · Organized by The Geographical Society of China, CAGIS, and SuperMap GIS</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🗺️</div>
+                <div><div class="award-title">Winner — Mapathon 2020</div><div class="award-meta">Bangladesh Netherlands Water Youth Forum · "Mapathon: Where Did the Dikes Go" · Nov 2020</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🚁</div>
+                <div><div class="award-title">sUAS Multi-Rotor Operator Certification</div><div class="award-meta">Taylor Geospatial Institute · Dec 2023–Jan 2024 · Alta X, Parrot Anafi, Skydio 2+, PX4 · FAA-compliant</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Teaching &amp; mentoring</h2></div>
+        <p class="section-subtitle">Linking measurement, modeling, and purpose through hands-on instruction.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-body">
+            <p>I serve as Teaching Assistant for Introduction to Remote Sensing and Digital Image Processing (undergraduate and graduate levels) at Saint Louis University, leading labs integrating optical imagery, signal processing, and GeoAI workflows.</p>
+            <p>Before that, I taught Remote Sensing and its applied lab at Begum Rokeya University, designing full syllabi, field mapping campaigns, and hands-on image analysis modules.</p>
+            <p>I mentor teams on soil sampling, sensor operations, and reproducible coding pipelines across multi-year field campaigns.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">Teaching Assistant — Remote Sensing &amp; Digital Image Processing</div>
+                <div class="timeline-meta">Saint Louis University · Undergraduate and graduate levels</div>
+                <div>Labs on photogrammetry, spectral indices, hyperspectral workflows, and GeoAI integration.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">Course Instructor — Remote Sensing and Lab</div>
+                <div class="timeline-meta">Begum Rokeya University, Bangladesh</div>
+                <div>Designed full syllabi, field mapping campaigns, and hands-on image analysis modules.</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-title">Field and Coding Team Mentoring</div>
+                <div class="timeline-meta">Remote Sensing Lab, Saint Louis University</div>
+                <div>Supervised teams on soil sampling, sensor deployment, calibration routines, and reproducible Python/R pipelines.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="shell">
+      <div class="section-header">
+        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Contact &amp; links</h2></div>
+        <p class="section-subtitle">Open to collaborations on hyperspectral soil studies, GeoAI, and geospatial analytics.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Get in touch</h3>
+          <div class="contact-row">
+            <div><div class="contact-label">Email</div><div class="contact-value"><a href="mailto:prantoroy@gmail.com">prantoroy@gmail.com</a></div></div>
+            <div><div class="contact-label">Location</div><div class="contact-value">Saint Louis, Missouri, USA</div></div>
+            <div><div class="contact-label">Affiliation</div><div class="contact-value">Remote Sensing Lab · Saint Louis University</div></div>
+          </div>
+          <div class="social-row">
+            <a class="social-pill" href="https://github.com/prantoroy" target="_blank" rel="noreferrer">💻 GitHub</a>
+            <a class="social-pill" href="https://scholar.google.com/citations?user=S3oCb8EAAAAJ&hl=en" target="_blank" rel="noreferrer">⊕ Google Scholar</a>
+            <a class="social-pill" href="https://www.linkedin.com/in/roybishal/" target="_blank" rel="noreferrer">in LinkedIn</a>
+            <a class="social-pill" href="https://orcid.org/0000-0001-9912-5505" target="_blank" rel="noreferrer">◎ ORCID</a>
+          </div>
+          <p class="contact-note">For student mentoring or speaking invitations, please include a short note on the audience and topic.</p>
+        </div>
+        <div class="stats-card">
+          <h3>Research at a glance</h3>
+          <div class="stats-grid">
+            <div class="stat-box"><div class="stat-value">11+</div><div class="stat-label">Peer-reviewed publications</div></div>
+            <div class="stat-box"><div class="stat-value">5+</div><div class="stat-label">Federal funding sources</div></div>
+            <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Under review or in preparation</div></div>
+            <div class="stat-box"><div class="stat-value">5</div><div class="stat-label">Institutional collaborators</div></div>
+          </div>
+          <div style="margin-top:1rem;font-size:0.79rem;color:var(--text-muted);line-height:1.6;">Collaborating with USGS, USFS, Donald Danforth Plant Science Center, University of California Davis, and University of Arizona.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Bishal Roy</div>
+      <div>Remote Sensing Lab · Saint Louis University</div>
+    </div>
+  </div>
+</footer>
 
 </div>
-
 <script>
-  // Mobile nav toggle
+  document.getElementById("year").textContent = new Date().getFullYear();
   const toggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
-  toggle.addEventListener("click", function () {
-    navLinks.classList.toggle("mobile-open");
-  });
-
-  // Close menu after click on link (mobile)
-  navLinks.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      navLinks.classList.remove("mobile-open");
-    });
-  });
-
-  // Footer year
-  document.getElementById("year").textContent = new Date().getFullYear();
+  toggle.addEventListener("click", () => navLinks.classList.toggle("mobile-open"));
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("mobile-open")));
 </script>
 </body>
 </html>
