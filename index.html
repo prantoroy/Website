@@ -10,327 +10,174 @@
   <style>
     :root {
       --bg: #060714;
-      --bg-soft: #0d0f1f;
-      --bg-softer: #151828;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56,189,248,0.12);
-      --accent-glow: rgba(56,189,248,0.25);
-      --accent-strong: #7dd3fc;
-      --accent-warm: #fbbf24;
-      --text: #f0f4f8;
-      --text-muted: #94a3b8;
-      --border: #1e2235;
-      --border-accent: rgba(56,189,248,0.2);
-      --card-radius: 16px;
+      --bg-soft: #101322;
+      --bg-softer: #181b2c;
+      --accent: #3a86ff;
+      --accent-soft: rgba(58,134,255,0.12);
+      --accent-strong: #ffbe0b;
+      --text: #f5f5f7;
+      --text-muted: #b3b4c5;
+      --border: #26293a;
+      --card-radius: 18px;
       --max-width: 1100px;
-      --shadow-soft: 0 20px 50px rgba(0,0,0,0.65);
-      --shadow-subtle: 0 8px 24px rgba(0,0,0,0.4);
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.6);
+      --shadow-subtle: 0 10px 26px rgba(0,0,0,0.35);
       --font-display: 'Syne', sans-serif;
       --font-body: 'DM Sans', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: radial-gradient(ellipse at top left, #0f1e3a 0%, #080c1a 40%, #040510 100%);
-      color: var(--text);
-      line-height: 1.65;
-    }
+    body { font-family: var(--font-body); background: radial-gradient(circle at top left, #16213e 0, #0b0c1a 45%, #050510 100%); color: var(--text); line-height: 1.65; }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     .page { min-height: 100vh; display: flex; flex-direction: column; }
     .shell { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.6rem; }
     section { padding: 4.5rem 0; scroll-margin-top: 80px; }
 
-    /* ── nav ── */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(24px);
-      background: linear-gradient(to bottom, rgba(4,5,16,0.97), rgba(4,5,16,0.88));
-      border-bottom: 1px solid rgba(56,189,248,0.08);
-    }
+    /* nav */
+    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(22px); background: linear-gradient(to bottom, rgba(5,5,15,0.96), rgba(5,5,15,0.86)); border-bottom: 1px solid rgba(255,255,255,0.05); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .nav-brand { display: flex; align-items: center; gap: 0.65rem; font-family: var(--font-display); }
-    .nav-logo {
-      width: 34px; height: 34px; border-radius: 999px;
-      border: 1.5px solid rgba(56,189,248,0.35);
-      background: rgba(56,189,248,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.82rem; font-weight: 800; color: var(--accent);
-      box-shadow: 0 0 12px rgba(56,189,248,0.2);
-    }
-    .nav-brand-text { display: flex; flex-direction: column; gap: 0.08rem; }
-    .nav-name { font-weight: 700; letter-spacing: 0.03em; font-size: 0.98rem; }
-    .nav-role { font-size: 0.71rem; color: var(--text-muted); font-family: var(--font-body); }
-    .nav-links { display: flex; align-items: center; gap: 1.4rem; font-size: 0.86rem; }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); }
+    .nav-logo { width: 32px; height: 32px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: var(--bg-softer); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: var(--accent); }
+    .nav-brand-text { display: flex; flex-direction: column; gap: 0.1rem; }
+    .nav-name { font-weight: 700; letter-spacing: 0.03em; font-size: 1rem; }
+    .nav-role { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-body); }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; font-size: 0.87rem; }
     .nav-link { color: var(--text-muted); position: relative; padding-bottom: 2px; transition: color 0.15s; }
-    .nav-link::after {
-      content: ""; position: absolute; left: 0; bottom: -3px;
-      width: 0; height: 1.5px; border-radius: 999px;
-      background: var(--accent);
-      transition: width 0.2s ease;
-    }
+    .nav-link::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); transition: width 0.2s ease; }
     .nav-link:hover { color: var(--text); }
     .nav-link:hover::after { width: 100%; }
-    .nav-cta {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      padding: 0.32rem 0.85rem; border-radius: 999px;
-      border: 1px solid rgba(56,189,248,0.3);
-      background: rgba(56,189,248,0.08);
-      font-size: 0.79rem; text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--accent); font-family: var(--font-display);
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .nav-cta:hover { background: rgba(56,189,248,0.16); border-color: rgba(56,189,248,0.5); }
-    .nav-cta-dot { width: 5px; height: 5px; border-radius: 999px; background: var(--accent-warm); box-shadow: 0 0 6px rgba(251,191,36,0.9); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.9rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); background: radial-gradient(circle at top left, rgba(58,134,255,0.35), rgba(5,6,20,0.9)); font-size: 0.79rem; text-transform: uppercase; letter-spacing: 0.12em; box-shadow: 0 0 22px rgba(58,134,255,0.28); font-family: var(--font-display); }
+    .nav-cta-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent-strong); box-shadow: 0 0 8px rgba(255,190,11,0.9); }
     .nav-menu-toggle { display: none; border: none; background: transparent; color: var(--text); font-size: 1.3rem; cursor: pointer; }
-    @media (max-width: 820px) {
+    @media (max-width: 780px) {
       .nav-links { display: none; }
       .nav-menu-toggle { display: inline-flex; }
-      .nav-links.mobile-open {
-        position: absolute; top: 64px; right: 0; left: 0;
-        flex-direction: column; gap: 0.8rem;
-        padding: 1.2rem 1.6rem 1.4rem;
-        background: rgba(4,5,20,0.98);
-        border-bottom: 1px solid rgba(56,189,248,0.1);
-        backdrop-filter: blur(20px);
-      }
+      .nav-links.mobile-open { position: absolute; top: 64px; right: 0; left: 0; flex-direction: column; gap: 0.85rem; padding: 1.2rem 1.6rem 1.4rem; background: radial-gradient(circle at top, #16172a 0, #050515 60%); border-bottom: 1px solid rgba(255,255,255,0.08); }
       .nav-cta { align-self: flex-start; }
     }
 
-    /* ── funders ── */
-    .funders {
-      background: linear-gradient(135deg, rgba(8,10,28,0.95), rgba(12,15,32,0.95));
-      padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(56,189,248,0.06);
-    }
-    .funders-label {
-      font-size: 0.68rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.18em;
-      text-align: center; margin-bottom: 1rem;
-      font-family: var(--font-display);
-    }
-    .funders-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.1rem; }
-    .funder-logo-wrap {
-      background: #ffffff; border-radius: 8px;
-      padding: 0.38rem 0.75rem;
-      display: flex; align-items: center; justify-content: center;
-      height: 52px; opacity: 0.88;
-      transition: opacity 0.2s, transform 0.2s;
-    }
+    /* funders */
+    .funders { background: linear-gradient(135deg, #0c0d1e, #13142a); padding: 1.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .funders-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.16em; text-align: center; margin-bottom: 1.1rem; font-family: var(--font-display); }
+    .funders-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
+    .funder-logo-wrap { background: #ffffff; border-radius: 9px; padding: 0.4rem 0.8rem; display: flex; align-items: center; justify-content: center; height: 54px; transition: opacity 0.2s, transform 0.2s; opacity: 0.9; }
     .funder-logo-wrap:hover { opacity: 1; transform: translateY(-1px); }
-    .funder-logo-wrap img { height: 32px; width: auto; max-width: 95px; object-fit: contain; }
+    .funder-logo-wrap img { height: 34px; width: auto; max-width: 100px; object-fit: contain; }
 
-    /* ── hero ── */
-    .hero { padding: 3.8rem 0 2.4rem; }
-    .hero-grid { display: grid; grid-template-columns: minmax(0,3fr) minmax(0,2fr); gap: 3rem; align-items: center; }
+    /* hero */
+    .hero { padding: 3.8rem 0 2.6rem; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0,3fr) minmax(0,2fr); gap: 2.8rem; align-items: center; }
     @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
-    .hero-kicker {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      font-size: 0.73rem; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.18em;
-      background: rgba(56,189,248,0.08); padding: 0.2rem 0.7rem;
-      border-radius: 999px; border: 1px solid rgba(56,189,248,0.25);
-      margin-bottom: 1.2rem; font-family: var(--font-display);
-    }
-    .hero-kicker-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent-warm); box-shadow: 0 0 6px rgba(251,191,36,0.85); }
-    .hero-title { font-family: var(--font-display); font-size: clamp(2rem, 3.8vw, 2.8rem); font-weight: 800; line-height: 1.08; margin-bottom: 1rem; }
-    .hero-highlight { background: linear-gradient(115deg, #e0f2fe, var(--accent), #7dd3fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero-subtitle { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.4rem; max-width: 38rem; }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.42rem; margin-bottom: 1.8rem; }
-    .tag {
-      font-size: 0.74rem; padding: 0.2rem 0.62rem; border-radius: 999px;
-      border: 1px solid rgba(56,189,248,0.15); color: var(--text-muted);
-      background: rgba(56,189,248,0.05);
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.42rem;
-      padding: 0.58rem 1.2rem; border-radius: 999px;
-      font-size: 0.87rem; border: 1px solid transparent; cursor: pointer;
-      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
-      font-family: var(--font-body);
-    }
-    .btn-primary { background: linear-gradient(120deg, var(--accent), #bae6fd); color: #041018; font-weight: 500; box-shadow: 0 10px 28px rgba(56,189,248,0.3); }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 34px rgba(56,189,248,0.4); }
-    .btn-ghost { border-color: rgba(56,189,248,0.25); background: rgba(56,189,248,0.06); color: var(--text-muted); }
-    .btn-ghost:hover { border-color: rgba(56,189,248,0.45); color: var(--text); transform: translateY(-1px); }
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.4rem; font-size: 0.77rem; color: var(--text-muted); }
-    .hero-meta-item strong { display: block; color: var(--text); font-weight: 500; margin-bottom: 0.08rem; }
-
+    .hero-kicker { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.75rem; color: var(--accent-strong); text-transform: uppercase; letter-spacing: 0.18em; background: rgba(58,134,255,0.1); padding: 0.22rem 0.7rem; border-radius: 999px; border: 1px solid rgba(58,134,255,0.28); margin-bottom: 1.3rem; font-family: var(--font-display); }
+    .hero-kicker-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-strong); box-shadow: 0 0 8px rgba(255,190,11,0.8); }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.1rem, 3.8vw, 2.85rem); font-weight: 800; line-height: 1.08; margin-bottom: 1rem; }
+    .hero-highlight { background: linear-gradient(120deg, #ffffff, #7ec8ff, #ffbe0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-subtitle { font-size: 0.96rem; color: var(--text-muted); margin-bottom: 1.4rem; max-width: 40rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.8rem; }
+    .tag { font-size: 0.76rem; padding: 0.22rem 0.65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.11); color: var(--text-muted); background: rgba(10,10,30,0.85); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.6rem 1.25rem; border-radius: 999px; font-size: 0.88rem; border: 1px solid transparent; cursor: pointer; transition: transform 0.13s, box-shadow 0.13s; font-family: var(--font-body); }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), #7ec8ff); color: #050510; box-shadow: 0 14px 30px rgba(46,130,255,0.35); }
+    .btn-ghost { border-color: rgba(255,255,255,0.18); background: rgba(5,5,20,0.85); color: var(--text-muted); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(0,0,0,0.65); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.5rem; font-size: 0.78rem; color: var(--text-muted); }
+    .hero-meta-item strong { display: block; color: var(--text); font-weight: 500; margin-bottom: 0.1rem; }
     .hero-visual { display: flex; justify-content: center; }
-    .hero-card {
-      width: 100%; max-width: 310px; border-radius: 22px;
-      background: linear-gradient(145deg, rgba(13,18,40,0.95), rgba(6,8,22,0.98));
-      border: 1px solid rgba(56,189,248,0.15);
-      padding: 1.1rem; box-shadow: var(--shadow-soft), 0 0 40px rgba(56,189,248,0.06);
-    }
+    .hero-card { width: 100%; max-width: 320px; border-radius: 24px; background: radial-gradient(circle at top left, #3a86ff22 0, #050515 40%); border: 1px solid rgba(255,255,255,0.12); padding: 1.15rem; box-shadow: var(--shadow-soft); }
     .hero-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
-    .hero-pill { font-size: 0.66rem; padding: 0.1rem 0.5rem; border-radius: 999px; border: 1px solid rgba(56,189,248,0.2); color: var(--text-muted); background: rgba(56,189,248,0.06); }
-    .hero-chip { font-size: 0.66rem; padding: 0.1rem 0.5rem; border-radius: 999px; color: var(--accent-warm); background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.38); }
-    .hero-photo-wrap { border-radius: 999px; width: 108px; height: 108px; overflow: hidden; border: 2px solid rgba(56,189,248,0.3); box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 20px rgba(56,189,248,0.12); margin-bottom: 0.85rem; background: var(--bg-softer); }
+    .hero-pill { font-size: 0.68rem; padding: 0.12rem 0.55rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); color: var(--text-muted); background: rgba(8,10,30,0.9); }
+    .hero-chip { font-size: 0.68rem; padding: 0.12rem 0.55rem; border-radius: 999px; color: var(--accent-strong); background: rgba(255,190,11,0.1); border: 1px solid rgba(255,190,11,0.45); }
+    .hero-photo-wrap { border-radius: 999px; width: 110px; height: 110px; overflow: hidden; border: 2px solid rgba(255,255,255,0.35); box-shadow: 0 16px 35px rgba(0,0,0,0.65); margin-bottom: 0.85rem; background: var(--bg-softer); }
     .hero-photo { width: 100%; height: 100%; object-fit: cover; }
-    .hero-card-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+    .hero-card-body { font-size: 0.79rem; color: var(--text-muted); line-height: 1.55; }
 
-    /* ── section headers ── */
-    .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1.2rem; margin-bottom: 1.8rem; }
-    .section-title-wrap { display: flex; align-items: center; gap: 0.65rem; }
-    .section-badge { width: 12px; height: 12px; border-radius: 3px; background: linear-gradient(135deg, var(--accent), #bae6fd); box-shadow: 0 0 12px rgba(56,189,248,0.5); }
-    .section-title { font-family: var(--font-display); font-size: 1.18rem; font-weight: 700; }
-    .section-subtitle { font-size: 0.83rem; color: var(--text-muted); max-width: 28rem; }
+    /* section headers */
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1.2rem; margin-bottom: 1.9rem; }
+    .section-title-wrap { display: flex; align-items: center; gap: 0.7rem; }
+    .section-badge { width: 13px; height: 13px; border-radius: 4px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); box-shadow: 0 0 14px rgba(58,134,255,0.45); }
+    .section-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    .section-subtitle { font-size: 0.84rem; color: var(--text-muted); max-width: 28rem; }
     @media (max-width: 780px) { .section-header { flex-direction: column; align-items: flex-start; } }
 
-    /* ── grids / cards ── */
-    .grid-2 { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.3rem; }
+    /* cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.4rem; }
     @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
-    .card {
-      border-radius: var(--card-radius);
-      background: linear-gradient(145deg, rgba(11,13,28,0.97), rgba(6,8,20,0.99));
-      border: 1px solid var(--border);
-      padding: 1.2rem; box-shadow: var(--shadow-subtle);
-      transition: border-color 0.2s;
-    }
-    .card:hover { border-color: rgba(56,189,248,0.18); }
+    .card { border-radius: var(--card-radius); background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1.2rem; box-shadow: var(--shadow-subtle); }
     .card-body { font-size: 0.82rem; color: var(--text-muted); }
-    .card-body p { margin-bottom: 0.5rem; }
-    .pill-row { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-top: 0.5rem; }
-    .pill { font-size: 0.7rem; padding: 0.14rem 0.55rem; border-radius: 999px; border: 1px solid rgba(56,189,248,0.14); color: var(--text-muted); background: rgba(56,189,248,0.04); }
-    .card-footer-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.85rem; font-size: 0.78rem; }
-    .link-pill {
-      display: inline-flex; align-items: center; gap: 0.32rem;
-      padding: 0.16rem 0.6rem; border-radius: 999px;
-      border: 1px solid rgba(56,189,248,0.2);
-      background: rgba(56,189,248,0.05); color: #bae6fd;
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-    }
-    .link-pill:hover { border-color: rgba(56,189,248,0.5); background: rgba(56,189,248,0.12); color: #fff; }
+    .card-body p { margin-bottom: 0.55rem; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .pill { font-size: 0.7rem; padding: 0.14rem 0.55rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.13); color: var(--text-muted); background: rgba(4,5,18,0.95); }
+    .card-footer-links { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.85rem; font-size: 0.79rem; }
+    .link-pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.18rem 0.65rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.17); background: rgba(9,10,28,0.95); color: #d8ddff; transition: border-color 0.15s, color 0.15s; }
+    .link-pill:hover { border-color: rgba(58,134,255,0.5); color: #fff; }
 
-    /* ── featured research ── */
-    .research-grid { display: flex; flex-direction: column; gap: 1.8rem; }
-    .research-card {
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(10,13,30,0.98), rgba(6,8,22,0.99));
-      border: 1px solid rgba(56,189,248,0.12);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,1.05fr);
-      box-shadow: var(--shadow-subtle);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .research-card:hover { border-color: rgba(56,189,248,0.3); box-shadow: 0 12px 36px rgba(0,0,0,0.5), 0 0 30px rgba(56,189,248,0.06); }
-    .research-card.reverse { grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); }
-    .research-card.reverse .research-figure { order: -1; }
-    @media (max-width: 820px) {
-      .research-card, .research-card.reverse { grid-template-columns: 1fr; }
-      .research-card.reverse .research-figure { order: 0; }
-    }
-    .research-figure {
-      position: relative; overflow: hidden;
-      background: rgba(56,189,248,0.04);
-      min-height: 240px;
-    }
-    .research-figure img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .research-card:hover .research-figure img { transform: scale(1.02); }
-    .research-figure-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(6,8,22,0.35) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .research-card.reverse .research-figure-overlay {
-      background: linear-gradient(to left, rgba(6,8,22,0.35) 0%, transparent 60%);
-    }
-    .research-body { padding: 1.8rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem; }
-    .research-number { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em; opacity: 0.7; }
-    .research-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; padding: 0.1rem 0.55rem; border-radius: 999px; background: rgba(56,189,248,0.1); color: var(--accent); border: 1px solid rgba(56,189,248,0.28); font-family: var(--font-display); font-weight: 600; letter-spacing: 0.05em; width: fit-content; }
-    .research-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; line-height: 1.3; color: var(--text); }
-    .research-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
-    .research-venue { font-size: 0.76rem; color: rgba(56,189,248,0.7); font-style: italic; }
-    .research-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .research-pill { font-size: 0.68rem; padding: 0.1rem 0.5rem; border-radius: 999px; border: 1px solid rgba(56,189,248,0.15); color: var(--text-muted); background: rgba(56,189,248,0.04); }
-    .research-links { display: flex; gap: 0.55rem; flex-wrap: wrap; margin-top: 0.2rem; }
-    .research-link {
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      font-size: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 999px;
-      border: 1px solid rgba(56,189,248,0.25);
-      background: rgba(56,189,248,0.07); color: #bae6fd;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-    }
-    .research-link:hover { background: rgba(56,189,248,0.16); border-color: rgba(56,189,248,0.5); color: #fff; }
-
-    /* ── publications ── */
+    /* publications */
     .pub-list { display: flex; flex-direction: column; }
-    .pub-group-label { font-family: var(--font-display); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin: 1.4rem 0 0.6rem; padding-bottom: 0.3rem; border-bottom: 1px solid rgba(56,189,248,0.18); }
+    .pub-group-label { font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin: 1.5rem 0 0.65rem; padding-bottom: 0.35rem; border-bottom: 1px solid rgba(58,134,255,0.2); }
     .pub-group-label:first-child { margin-top: 0; }
-    .pub-item { padding: 0.88rem 1rem; border-radius: 12px; background: rgba(56,189,248,0.03); border: 1px solid rgba(56,189,248,0.08); margin-bottom: 0.45rem; transition: border-color 0.15s, background 0.15s; }
-    .pub-item:hover { border-color: rgba(56,189,248,0.22); background: rgba(56,189,248,0.06); }
-    .pub-authors { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.16rem; line-height: 1.5; }
+    .pub-item { padding: 0.9rem 1rem; border-radius: 13px; background: linear-gradient(120deg, rgba(10,11,25,0.9), rgba(6,7,18,0.96)); border: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.5rem; transition: border-color 0.15s; }
+    .pub-item:hover { border-color: rgba(58,134,255,0.28); }
+    .pub-authors { font-size: 0.79rem; color: var(--text-muted); margin-bottom: 0.18rem; line-height: 1.5; }
     .pub-authors strong { color: var(--text); font-weight: 600; }
-    .pub-title { font-size: 0.86rem; font-weight: 500; margin-bottom: 0.13rem; color: var(--text); line-height: 1.45; }
-    .pub-venue { color: var(--accent); font-size: 0.77rem; margin-bottom: 0.2rem; font-style: italic; opacity: 0.85; }
-    .pub-links { display: flex; flex-wrap: wrap; gap: 0.42rem; margin-top: 0.28rem; align-items: center; }
-    .pub-tag { font-size: 0.65rem; padding: 0.08rem 0.45rem; border-radius: 999px; background: rgba(56,189,248,0.1); color: #bae6fd; border: 1px solid rgba(56,189,248,0.3); }
-    .pub-tag-review { font-size: 0.65rem; padding: 0.08rem 0.45rem; border-radius: 999px; background: rgba(251,191,36,0.08); color: #fde68a; border: 1px solid rgba(251,191,36,0.28); }
+    .pub-title { font-size: 0.87rem; font-weight: 500; margin-bottom: 0.14rem; color: var(--text); line-height: 1.45; }
+    .pub-venue { color: var(--accent); font-size: 0.78rem; margin-bottom: 0.22rem; font-style: italic; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.3rem; align-items: center; }
+    .pub-tag { font-size: 0.67rem; padding: 0.1rem 0.48rem; border-radius: 999px; background: rgba(58,134,255,0.12); color: #dbe7ff; border: 1px solid rgba(58,134,255,0.35); }
+    .pub-tag-review { font-size: 0.67rem; padding: 0.1rem 0.48rem; border-radius: 999px; background: rgba(255,190,11,0.1); color: #ffe9a0; border: 1px solid rgba(255,190,11,0.32); }
 
-    /* ── equipment ── */
-    .equip-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.9rem; }
+    /* equipment */
+    .equip-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
     @media (max-width: 900px) { .equip-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 560px) { .equip-grid { grid-template-columns: 1fr; } }
-    .equip-card { border-radius: 13px; background: rgba(56,189,248,0.03); border: 1px solid rgba(56,189,248,0.1); padding: 0.95rem 1rem; transition: border-color 0.15s; }
-    .equip-card:hover { border-color: rgba(56,189,248,0.22); }
-    .equip-card-title { font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.55rem; }
-    .equip-list { list-style: none; display: flex; flex-direction: column; gap: 0.26rem; }
-    .equip-list li { font-size: 0.77rem; color: var(--text-muted); padding-left: 0.9rem; position: relative; line-height: 1.45; }
-    .equip-list li::before { content: "·"; position: absolute; left: 0; color: var(--accent); opacity: 0.7; }
+    @media (max-width: 580px) { .equip-grid { grid-template-columns: 1fr; } }
+    .equip-card { border-radius: 14px; background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1rem 1.1rem; }
+    .equip-card-title { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+    .equip-list { list-style: none; display: flex; flex-direction: column; gap: 0.28rem; }
+    .equip-list li { font-size: 0.78rem; color: var(--text-muted); padding-left: 0.9rem; position: relative; line-height: 1.45; }
+    .equip-list li::before { content: "·"; position: absolute; left: 0; color: var(--accent); }
 
-    /* ── awards ── */
-    .award-list { display: flex; flex-direction: column; gap: 0.55rem; }
-    .award-item { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.7rem 0.9rem; border-radius: 11px; background: rgba(56,189,248,0.04); border: 1px solid rgba(56,189,248,0.1); transition: border-color 0.15s; }
-    .award-item:hover { border-color: rgba(56,189,248,0.22); }
-    .award-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.04rem; }
-    .award-title { font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 0.08rem; }
-    .award-meta { font-size: 0.73rem; color: var(--text-muted); }
+    /* awards */
+    .award-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .award-item { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.75rem 0.95rem; border-radius: 12px; background: rgba(10,11,25,0.9); border: 1px solid rgba(255,255,255,0.08); }
+    .award-icon { font-size: 1.05rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .award-title { font-size: 0.83rem; font-weight: 500; color: var(--text); margin-bottom: 0.1rem; }
+    .award-meta { font-size: 0.75rem; color: var(--text-muted); }
 
-    /* ── teaching ── */
+    /* teaching */
     .timeline { display: flex; flex-direction: column; gap: 1rem; }
-    .timeline-item { position: relative; padding-left: 1.4rem; font-size: 0.82rem; }
-    .timeline-dot { position: absolute; left: 0.18rem; top: 0.22rem; width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px rgba(56,189,248,0.7); }
-    .timeline-title { font-family: var(--font-display); font-weight: 600; margin-bottom: 0.08rem; }
-    .timeline-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.12rem; }
+    .timeline-item { position: relative; padding-left: 1.4rem; font-size: 0.83rem; }
+    .timeline-dot { position: absolute; left: 0.2rem; top: 0.22rem; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px rgba(58,134,255,0.7); }
+    .timeline-title { font-family: var(--font-display); font-weight: 600; margin-bottom: 0.1rem; }
+    .timeline-meta { font-size: 0.77rem; color: var(--text-muted); margin-bottom: 0.15rem; }
 
-    /* ── contact ── */
-    .contact-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1.6fr); gap: 1.5rem; }
+    /* contact */
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1.6fr); gap: 1.6rem; }
     @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-    .contact-card { border-radius: var(--card-radius); background: linear-gradient(135deg, rgba(8,11,30,0.98), rgba(12,16,36,0.98)); border: 1px solid rgba(56,189,248,0.18); padding: 1.25rem 1.2rem; box-shadow: var(--shadow-soft); font-size: 0.87rem; color: var(--text-muted); }
+    .contact-card { border-radius: var(--card-radius); background: linear-gradient(135deg, #0b0c1a, #15152b); border: 1px solid rgba(255,255,255,0.15); padding: 1.25rem 1.2rem; box-shadow: var(--shadow-soft); font-size: 0.88rem; color: var(--text-muted); }
     .contact-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.85rem; }
-    .contact-row { display: flex; flex-direction: column; gap: 0.55rem; }
-    .contact-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.11em; margin-bottom: 0.06rem; }
-    .contact-value { color: #ffffff; font-size: 0.87rem; }
+    .contact-row { display: flex; flex-direction: column; gap: 0.6rem; }
+    .contact-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.08rem; }
+    .contact-value { color: #ffffff; font-size: 0.88rem; }
     .contact-value a:hover { color: var(--accent); }
-    .social-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; font-size: 0.81rem; }
-    .social-pill { display: inline-flex; align-items: center; gap: 0.38rem; padding: 0.24rem 0.7rem; border-radius: 999px; border: 1px solid rgba(56,189,248,0.18); background: rgba(56,189,248,0.05); color: #bae6fd; transition: border-color 0.15s, background 0.15s, color 0.15s; }
-    .social-pill:hover { border-color: rgba(56,189,248,0.45); background: rgba(56,189,248,0.12); color: #fff; }
-    .contact-note { font-size: 0.77rem; color: var(--text-muted); margin-top: 0.85rem; }
-    .stats-card { border-radius: var(--card-radius); background: linear-gradient(145deg, rgba(11,13,28,0.97), rgba(6,8,20,0.99)); border: 1px solid var(--border); padding: 1.25rem; }
-    .stats-card h3 { font-family: var(--font-display); font-size: 0.93rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.7rem; }
-    .stat-box { background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 11px; padding: 0.7rem 0.85rem; }
-    .stat-value { font-family: var(--font-display); font-size: 1.32rem; font-weight: 800; color: #fff; }
-    .stat-label { font-size: 0.71rem; color: var(--text-muted); margin-top: 0.08rem; }
+    .social-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; font-size: 0.82rem; }
+    .social-pill { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.26rem 0.72rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.17); background: rgba(5,6,18,0.96); color: #d8ddff; transition: border-color 0.15s, color 0.15s; }
+    .social-pill:hover { border-color: rgba(58,134,255,0.5); color: #fff; }
+    .contact-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.85rem; }
+    .stats-card { border-radius: var(--card-radius); background: linear-gradient(145deg, rgba(10,12,26,0.96), rgba(6,7,20,0.98)); border: 1px solid var(--border); padding: 1.25rem; }
+    .stats-card h3 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.75rem; }
+    .stat-box { background: rgba(58,134,255,0.07); border: 1px solid rgba(58,134,255,0.17); border-radius: 12px; padding: 0.7rem 0.85rem; }
+    .stat-value { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-    /* ── footer ── */
-    .footer { padding: 2rem 0 1.4rem; border-top: 1px solid rgba(56,189,248,0.06); font-size: 0.76rem; color: var(--text-muted); }
+    /* footer */
+    .footer { padding: 2rem 0 1.4rem; border-top: 1px solid rgba(255,255,255,0.07); font-size: 0.77rem; color: var(--text-muted); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
   </style>
 </head>
 <body>
 <div class="page">
 
-<!-- Nav -->
 <header class="nav">
   <div class="shell">
     <div class="nav-inner">
@@ -344,7 +191,6 @@
       <button class="nav-menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
       <nav class="nav-links" id="navLinks">
         <a href="#about" class="nav-link">About</a>
-        <a href="#research" class="nav-link">Research</a>
         <a href="#publications" class="nav-link">Publications</a>
         <a href="#equipment" class="nav-link">Equipment</a>
         <a href="#awards" class="nav-link">Awards</a>
@@ -358,7 +204,6 @@
   </div>
 </header>
 
-<!-- Funders -->
 <div class="funders">
   <div class="shell">
     <p class="funders-label">Research Supported By</p>
@@ -367,7 +212,7 @@
       <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/USDA_logo.png/960px-USDA_logo.png" alt="USDA"></div>
       <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/USGS_logo.png" alt="USGS"></div>
       <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/ARPA-E_logo_2021.png" alt="ARPA-E"></div>
-      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png" alt="DOE"></div>
+      <div class="funder-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Seal_of_the_United_States_Department_of_Energy.svg/500px-Seal_of_the_United_States_Department_of_Energy.svg.png" alt="Department of Energy"></div>
       <div class="funder-logo-wrap"><img src="https://nfg-sofun.s3.amazonaws.com/uploads/ui_configuration/main_logo/7990/welcome_logo_salk_logo_tag_blue_vt.png" alt="Salk Institute"></div>
       <div class="funder-logo-wrap"><img src="https://unitedsoybean.org/wp-content/uploads/2024/06/USB_Preferred_RGB_GRN348_C-e1718813442856.jpg" alt="United Soybean Board"></div>
       <div class="funder-logo-wrap"><img src="https://foundationfar.org/wp-content/uploads/2022/07/ffarFT-rgb-color-onlight-1.png" alt="FFAR"></div>
@@ -376,8 +221,6 @@
 </div>
 
 <main id="top">
-
-  <!-- Hero -->
   <section class="hero">
     <div class="shell hero-grid">
       <div>
@@ -392,8 +235,8 @@
           <span class="tag">GeoAI for agroecosystems</span>
         </div>
         <div class="hero-actions">
-          <a href="#research" class="btn btn-primary">▶ Featured research</a>
-          <a href="#publications" class="btn btn-ghost">📄 Publications</a>
+          <a href="#publications" class="btn btn-primary"><span>📄</span><span>Publications</span></a>
+          <a href="#contact" class="btn btn-ghost"><span>✉</span><span>Get in touch</span></a>
         </div>
         <div class="hero-meta">
           <div class="hero-meta-item"><strong>Doctoral research</strong>Foundation models for subsurface prediction &amp; carbon accounting</div>
@@ -409,13 +252,12 @@
           <div class="hero-photo-wrap">
             <img src="assets/headshot.jpg" alt="Bishal Roy" class="hero-photo">
           </div>
-          <div class="hero-card-body">Developing foundational models that integrate multimodal sensing to generate depth-resolved soil carbon maps — physics-constrained and validated against laboratory-analyzed soil cores — enabling actionable geospatial intelligence for agriculture, conservation, and environmental management.</div>
+          <div class="hero-card-body">Developing foundational models that integrate multimodal sensing to generate depth-resolved soil carbon maps, physics-constrained and validated against laboratory-analyzed soil cores — enabling actionable geospatial intelligence for agriculture, conservation, and environmental management.</div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- About -->
   <section id="about">
     <div class="shell">
       <div class="section-header">
@@ -449,89 +291,6 @@
     </div>
   </section>
 
-  <!-- Featured Research -->
-  <section id="research">
-    <div class="shell">
-      <div class="section-header">
-        <div class="section-title-wrap"><div class="section-badge"></div><h2 class="section-title">Featured research</h2></div>
-        <p class="section-subtitle">Three representative projects — each linked to published output.</p>
-      </div>
-      <div class="research-grid">
-
-        <!-- Card 1: Physics-aware SOC -->
-        <article class="research-card">
-          <div class="research-body">
-            <div class="research-number">Project 01</div>
-            <div class="research-tag">Depth-resolved SOC · GeoAI</div>
-            <h3 class="research-title">Physics-Aware Neural Framework for Multidepth Soil Carbon Mapping</h3>
-            <p class="research-desc">A physically constrained deep learning framework that enforces realistic vertical soil carbon behavior, enabling reliable SOC estimation at multiple depth layers — beyond what surface spectroscopy alone can resolve. Validated with multi-year field campaigns and multi-depth soil cores.</p>
-            <div class="research-venue">IEEE Geoscience and Remote Sensing Letters · 2026</div>
-            <div class="research-pills">
-              <span class="research-pill">Physics-informed constraints</span>
-              <span class="research-pill">Hyperspectral + LiDAR fusion</span>
-              <span class="research-pill">Multi-depth validation</span>
-            </div>
-            <div class="research-links">
-              <a class="research-link" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">⇱ DOI</a>
-            </div>
-          </div>
-          <div class="research-figure">
-            <img src="assets/research_soc.webp" alt="Physics-aware neural framework for soil carbon mapping">
-            <div class="research-figure-overlay"></div>
-          </div>
-        </article>
-
-        <!-- Card 2: Drought stress / Transfer learning -->
-        <article class="research-card reverse">
-          <div class="research-body">
-            <div class="research-number">Project 02</div>
-            <div class="research-tag">Crop stress · Transfer learning</div>
-            <h3 class="research-title">Early Detection of Drought Stress Using Hyperspectral Imaging and Photosystem Sensing</h3>
-            <p class="research-desc">Combining radiative transfer simulations (PROSPECT-SAIL) with transfer learning to detect mild water stress in durum wheat before visible symptoms appear. Physics-driven synthetic data generation reduces ground truth requirements while improving cross-system generalization.</p>
-            <div class="research-venue">Remote Sensing · 2024</div>
-            <div class="research-pills">
-              <span class="research-pill">PROSPECT-SAIL simulation</span>
-              <span class="research-pill">Transfer learning</span>
-              <span class="research-pill">Non-destructive detection</span>
-            </div>
-            <div class="research-links">
-              <a class="research-link" href="https://doi.org/10.3390/rs16010155" target="_blank" rel="noreferrer">⇱ DOI</a>
-            </div>
-          </div>
-          <div class="research-figure">
-            <img src="assets/research_stress.webp" alt="Transfer learning for crop stress detection">
-            <div class="research-figure-overlay"></div>
-          </div>
-        </article>
-
-        <!-- Card 3: Geolocating / Solar geometry -->
-        <article class="research-card">
-          <div class="research-body">
-            <div class="research-number">Project 03</div>
-            <div class="research-tag">UAV · Sensor geometry</div>
-            <h3 class="research-title">Geolocating Images Using Solar and Scanning Geometry</h3>
-            <p class="research-desc">A geometry-based method for precise image geolocation using solar angles and sensor scanning geometry, enabling accurate spatial referencing of airborne hyperspectral imagery without relying solely on GPS metadata — critical for multi-angular UAV data fusion.</p>
-            <div class="research-venue">IGARSS 2025 — IEEE International Geoscience and Remote Sensing Symposium</div>
-            <div class="research-pills">
-              <span class="research-pill">Solar geometry</span>
-              <span class="research-pill">UAV sensor calibration</span>
-              <span class="research-pill">Multi-angular fusion</span>
-            </div>
-            <div class="research-links">
-              <a class="research-link" href="https://doi.org/10.1109/IGARSS55030.2025.11243632" target="_blank" rel="noreferrer">⇱ DOI</a>
-            </div>
-          </div>
-          <div class="research-figure">
-            <img src="assets/research_geo.webp" alt="Solar and scanning geometry for image geolocation">
-            <div class="research-figure-overlay"></div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Publications -->
   <section id="publications">
     <div class="shell">
       <div class="section-header">
@@ -548,70 +307,100 @@
               <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., Gul, C., and Shakoor, N.</div>
               <div class="pub-title">Physics-Aware Neural Framework for Multidepth Soil Carbon Mapping.</div>
               <div class="pub-venue">IEEE Geoscience and Remote Sensing Letters, vol. 23, 2026, pp. 1–5.</div>
-              <div class="pub-links"><span class="pub-tag">Depth-resolved SOC</span><span class="pub-tag">Physics-informed</span><a class="link-pill" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Depth-resolved SOC</span><span class="pub-tag">Physics-informed</span>
+                <a class="link-pill" href="https://doi.org/10.1109/LGRS.2025.3632815" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., Ghoreishi, D., and Shakoor, N.</div>
               <div class="pub-title">Soil Carbon Estimation From Hyperspectral Imagery With Wavelet Decomposition and Frame Theory.</div>
               <div class="pub-venue">IEEE Transactions on Geoscience and Remote Sensing, vol. 62, 2024, pp. 1–12.</div>
-              <div class="pub-links"><span class="pub-tag">Hyperspectral wavelets</span><span class="pub-tag">Frame theory</span><a class="link-pill" href="https://doi.org/10.1109/TGRS.2024.3461628" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Hyperspectral wavelets</span><span class="pub-tag">Frame theory</span>
+                <a class="link-pill" href="https://doi.org/10.1109/TGRS.2024.3461628" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors">Giri, A., Sagan, V., Alifu, H., Maiwulanjiang, A., Sarkar, S., <strong>Roy, B.</strong>, and Fritschi, F.B.</div>
               <div class="pub-title">A Wavelet Decomposition Method for Estimating Soybean Seed Composition with Hyperspectral Data.</div>
               <div class="pub-venue">Remote Sensing, vol. 16, no. 23, Dec. 2024, p. 4594.</div>
-              <div class="pub-links"><span class="pub-tag">Soybean composition</span><span class="pub-tag">Wavelets</span><a class="link-pill" href="https://doi.org/10.3390/rs16234594" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Soybean composition</span><span class="pub-tag">Wavelets</span>
+                <a class="link-pill" href="https://doi.org/10.3390/rs16234594" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Newcomb, M., Tuberosa, R., LeBauer, D., and Shakoor, N.</div>
               <div class="pub-title">Early Detection of Drought Stress in Durum Wheat Using Hyperspectral Imaging and Photosystem Sensing.</div>
               <div class="pub-venue">Remote Sensing, vol. 16, no. 1, Dec. 2023, p. 155.</div>
-              <div class="pub-links"><span class="pub-tag">Drought stress</span><span class="pub-tag">TERRA-REF</span><a class="link-pill" href="https://doi.org/10.3390/rs16010155" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Drought stress</span><span class="pub-tag">TERRA-REF</span>
+                <a class="link-pill" href="https://doi.org/10.3390/rs16010155" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong> and Rahman, M.Z.</div>
               <div class="pub-title">Spatio-Temporal Analysis and Cellular Automata-Based Simulations of Biophysical Indicators under the Scenario of Climate Change and Urbanization Using Artificial Neural Network.</div>
               <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 31, Aug. 2023, p. 100992.</div>
-              <div class="pub-links"><span class="pub-tag">Urban expansion</span><span class="pub-tag">ANN-CA</span><a class="link-pill" href="https://doi.org/10.1016/j.rsase.2023.100992" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Urban expansion</span><span class="pub-tag">ANN-CA</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2023.100992" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong> and Bari, E.</div>
               <div class="pub-title">Examining the Relationship between Land Surface Temperature and Landscape Features Using Spectral Indices with Google Earth Engine.</div>
               <div class="pub-venue">Heliyon, vol. 8, no. 9, Sept. 2022, p. e10668.</div>
-              <div class="pub-links"><span class="pub-tag">LST</span><span class="pub-tag">Google Earth Engine</span><a class="link-pill" href="https://doi.org/10.1016/j.heliyon.2022.e10668" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">LST</span><span class="pub-tag">Google Earth Engine</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.heliyon.2022.e10668" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong></div>
               <div class="pub-title">Optimum Machine Learning Algorithm Selection for Forecasting Vegetation Indices: MODIS NDVI &amp; EVI.</div>
               <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 23, Aug. 2021, p. 100582.</div>
-              <div class="pub-links"><span class="pub-tag">NDVI · EVI</span><span class="pub-tag">ML comparison</span><a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100582" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">NDVI · EVI</span><span class="pub-tag">ML comparison</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100582" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong>, Bari, E., Nipa, N.J., and Ani, S.A.</div>
               <div class="pub-title">Comparison of Temporal Changes in Urban Settlements and Land Surface Temperature in Rangpur and Gazipur Sadar, Bangladesh after the Establishment of City Corporation.</div>
               <div class="pub-venue">Remote Sensing Applications: Society and Environment, vol. 23, Aug. 2021, p. 100587.</div>
-              <div class="pub-links"><span class="pub-tag">Urban heat</span><span class="pub-tag">Bangladesh</span><a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100587" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Urban heat</span><span class="pub-tag">Bangladesh</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.rsase.2021.100587" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong></div>
               <div class="pub-title">A Machine Learning Approach to Monitoring and Forecasting Spatio-Temporal Dynamics of Land Cover in Cox's Bazar District, Bangladesh from 2001 to 2019.</div>
               <div class="pub-venue">Environmental Challenges, vol. 5, Dec. 2021, p. 100237.</div>
-              <div class="pub-links"><span class="pub-tag">Land cover change</span><span class="pub-tag">Time series</span><a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100237" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Land cover change</span><span class="pub-tag">Time series</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100237" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors">Bari, E., Nipa, N.J., and <strong>Roy, B.</strong></div>
               <div class="pub-title">Association of Vegetation Indices with Atmospheric &amp; Biological Factors Using MODIS Time Series Products.</div>
               <div class="pub-venue">Environmental Challenges, vol. 5, Dec. 2021, p. 100376.</div>
-              <div class="pub-links"><span class="pub-tag">Vegetation indices</span><span class="pub-tag">MODIS</span><a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100376" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Vegetation indices</span><span class="pub-tag">MODIS</span>
+                <a class="link-pill" href="https://doi.org/10.1016/j.envc.2021.100376" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-group-label">Conference Papers (Peer Reviewed)</div>
@@ -620,14 +409,20 @@
               <div class="pub-authors"><strong>Roy, B.</strong> and Sagan, V.</div>
               <div class="pub-title">Geolocating Images Using Solar and Scanning Geometry.</div>
               <div class="pub-venue">IGARSS 2025 — 45th IEEE International Geoscience and Remote Sensing Symposium, pp. 8896–8899.</div>
-              <div class="pub-links"><span class="pub-tag">Geolocation</span><span class="pub-tag">Solar geometry</span><a class="link-pill" href="https://doi.org/10.1109/IGARSS55030.2025.11243632" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Geolocation</span><span class="pub-tag">Solar geometry</span>
+                <a class="link-pill" href="https://doi.org/10.1109/IGARSS55030.2025.11243632" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-item">
               <div class="pub-authors"><strong>Roy, B.</strong>, Sagan, V., Alifu, H., Saxton, J., and Shakoor, N.</div>
               <div class="pub-title">Comparative Analysis of Wavelet Transformation Techniques in Enhancing Soil Organic Carbon Detection Through Hyperspectral Imaging.</div>
               <div class="pub-venue">IGARSS 2024 — 44th IEEE International Geoscience and Remote Sensing Symposium, pp. 8010–8014.</div>
-              <div class="pub-links"><span class="pub-tag">Wavelet comparison</span><span class="pub-tag">SOC detection</span><a class="link-pill" href="https://doi.org/10.1109/IGARSS53475.2024.10641176" target="_blank" rel="noreferrer">⇱ DOI</a></div>
+              <div class="pub-links">
+                <span class="pub-tag">Wavelet comparison</span><span class="pub-tag">SOC detection</span>
+                <a class="link-pill" href="https://doi.org/10.1109/IGARSS53475.2024.10641176" target="_blank" rel="noreferrer">⇱ DOI</a>
+              </div>
             </div>
 
             <div class="pub-group-label">Under Review &amp; In Preparation</div>
@@ -661,7 +456,7 @@
             </div>
 
           </div>
-          <div class="card-footer-links" style="margin-top:1.2rem;">
+          <div class="card-footer-links" style="margin-top:1.3rem;">
             <a class="link-pill" href="https://scholar.google.com/citations?user=S3oCb8EAAAAJ&hl=en" target="_blank" rel="noreferrer">⊕ Google Scholar</a>
             <a class="link-pill" href="https://orcid.org/0000-0001-9912-5505" target="_blank" rel="noreferrer">◎ ORCID</a>
           </div>
@@ -670,7 +465,6 @@
     </div>
   </section>
 
-  <!-- Equipment -->
   <section id="equipment">
     <div class="shell">
       <div class="section-header">
@@ -684,7 +478,6 @@
             <li>Headwall VNIR+SWIR co-aligned sensor</li>
             <li>Headwall Nano VNIR + FLIR thermal</li>
             <li>HySpex Mjolnir VS-620 VNIR+SWIR</li>
-            <li>OCI-F hyperspectral camera</li>
           </ul>
         </div>
         <div class="equip-card">
@@ -699,17 +492,16 @@
           <div class="equip-card-title">Multispectral &amp; Thermal</div>
           <ul class="equip-list">
             <li>ITERES uTABI-640 cooled thermal</li>
-            <li>3× ICI 8640 P-Series thermal imaging</li>
+            <li>ICI 8640 P-Series thermal imaging</li>
             <li>FLIR Vue Pro R thermal</li>
-            <li>6× MicaSense RedEdge and Altum</li>
+            <li>MicaSense RedEdge and Altum</li>
           </ul>
         </div>
         <div class="equip-card">
           <div class="equip-card-title">UAV Platforms (DoD-compliant)</div>
           <ul class="equip-list">
-            <li>7× Inspired Flight IF1200A</li>
+            <li>Inspired Flight IF1200A</li>
             <li>Skydio X10 and X2 (8 units)</li>
-            <li>Watson Prism</li>
             <li>Alta X</li>
           </ul>
         </div>
@@ -717,15 +509,13 @@
           <div class="equip-card-title">LiDAR Sensors</div>
           <ul class="equip-list">
             <li>Riegl Vux-120</li>
-            <li>Riegl MiniVux-3UAV</li>
-            <li>Velodyne HDL-32</li>
+            <li>Riegl MiniVux</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Awards -->
   <section id="awards">
     <div class="shell">
       <div class="section-header">
@@ -736,18 +526,36 @@
         <div class="card">
           <div class="card-body">
             <div class="award-list">
-              <div class="award-item"><div class="award-icon">🥈</div><div><div class="award-title">SLU Sigma Xi Research Symposium — 2nd Place</div><div class="award-meta">Graduate Physical Sciences and Engineering · Saint Louis University</div></div></div>
-              <div class="award-item"><div class="award-icon">🎤</div><div><div class="award-title">3 Minute Thesis Competition — 3rd Place</div><div class="award-meta">Doctoral Category · Saint Louis University</div></div></div>
-              <div class="award-item"><div class="award-icon">✈️</div><div><div class="award-title">Dean's Travel Grant × 3</div><div class="award-meta">SLU School of Science and Engineering — AGU Fall Meeting 2023, AAG Annual Meeting 2024, AGU Fall Meeting 2025</div></div></div>
+              <div class="award-item">
+                <div class="award-icon">🥈</div>
+                <div><div class="award-title">SLU Sigma Xi Research Symposium — 2nd Place</div><div class="award-meta">Graduate Physical Sciences and Engineering · Saint Louis University</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🎤</div>
+                <div><div class="award-title">3 Minute Thesis Competition — 3rd Place</div><div class="award-meta">Doctoral Category · Saint Louis University</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">✈️</div>
+                <div><div class="award-title">Dean's Travel Grant × 3</div><div class="award-meta">SLU School of Science and Engineering — AGU Fall Meeting 2023, AAG Annual Meeting 2024, AGU Fall Meeting 2025</div></div>
+              </div>
             </div>
           </div>
         </div>
         <div class="card">
           <div class="card-body">
             <div class="award-list">
-              <div class="award-item"><div class="award-icon">🥇</div><div><div class="award-title">1st Runner-up — 18th SMC Development Category</div><div class="award-meta">SuperMap GIS · Nov 2020 · Organized by The Geographical Society of China, CAGIS, and SuperMap GIS</div></div></div>
-              <div class="award-item"><div class="award-icon">🗺️</div><div><div class="award-title">Winner — Mapathon 2020</div><div class="award-meta">Bangladesh Netherlands Water Youth Forum · "Mapathon: Where Did the Dikes Go" · Nov 2020</div></div></div>
-              <div class="award-item"><div class="award-icon">🚁</div><div><div class="award-title">sUAS Multi-Rotor Operator Certification</div><div class="award-meta">Taylor Geospatial Institute · Dec 2023–Jan 2024 · Alta X, Parrot Anafi, Skydio 2+, PX4 · FAA-compliant</div></div></div>
+              <div class="award-item">
+                <div class="award-icon">🥇</div>
+                <div><div class="award-title">1st Runner-up — 18th SMC Development Category</div><div class="award-meta">SuperMap GIS · Nov 2020 · Organized by The Geographical Society of China, CAGIS, and SuperMap GIS</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🗺️</div>
+                <div><div class="award-title">Winner — Mapathon 2020</div><div class="award-meta">Bangladesh Netherlands Water Youth Forum · "Mapathon: Where Did the Dikes Go" · Nov 2020</div></div>
+              </div>
+              <div class="award-item">
+                <div class="award-icon">🚁</div>
+                <div><div class="award-title">sUAS Multi-Rotor Operator Certification</div><div class="award-meta">Taylor Geospatial Institute · Dec 2023–Jan 2024 · Alta X, Parrot Anafi, Skydio 2+, PX4 · FAA-compliant</div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -755,7 +563,6 @@
     </div>
   </section>
 
-  <!-- Teaching -->
   <section id="teaching">
     <div class="shell">
       <div class="section-header">
@@ -798,7 +605,6 @@
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact">
     <div class="shell">
       <div class="section-header">
@@ -815,7 +621,7 @@
           </div>
           <div class="social-row">
             <a class="social-pill" href="https://github.com/prantoroy" target="_blank" rel="noreferrer">💻 GitHub</a>
-            <a class="social-pill" href="https://scholar.google.com/citations?user=S3oCb8EAAAAJ&hl=en" target="_blank" rel="noreferrer">⊕ Scholar</a>
+            <a class="social-pill" href="https://scholar.google.com/citations?user=S3oCb8EAAAAJ&hl=en" target="_blank" rel="noreferrer">⊕ Google Scholar</a>
             <a class="social-pill" href="https://www.linkedin.com/in/roybishal/" target="_blank" rel="noreferrer">in LinkedIn</a>
             <a class="social-pill" href="https://orcid.org/0000-0001-9912-5505" target="_blank" rel="noreferrer">◎ ORCID</a>
           </div>
@@ -826,15 +632,14 @@
           <div class="stats-grid">
             <div class="stat-box"><div class="stat-value">11+</div><div class="stat-label">Peer-reviewed publications</div></div>
             <div class="stat-box"><div class="stat-value">5+</div><div class="stat-label">Federal funding sources</div></div>
-            <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Under review or in prep</div></div>
+            <div class="stat-box"><div class="stat-value">4</div><div class="stat-label">Under review or in preparation</div></div>
             <div class="stat-box"><div class="stat-value">5</div><div class="stat-label">Institutional collaborators</div></div>
           </div>
-          <div style="margin-top:1rem;font-size:0.78rem;color:var(--text-muted);line-height:1.6;">Collaborating with USGS, USFS, Donald Danforth Plant Science Center, University of California Davis, and University of Arizona.</div>
+          <div style="margin-top:1rem;font-size:0.79rem;color:var(--text-muted);line-height:1.6;">Collaborating with USGS, USFS, Donald Danforth Plant Science Center, University of California Davis, and University of Arizona.</div>
         </div>
       </div>
     </div>
   </section>
-
 </main>
 
 <footer class="footer">
